@@ -1,6 +1,6 @@
 import React from "react";
 import { TitlesContext } from "../../App";
-
+import { Link } from "react-router-dom";
 
 
 function AddNew() {
@@ -13,16 +13,13 @@ function AddNew() {
     const newTitle = [...title, { id: crypto.randomUUID(), title: pendingTitle }];
 
     setTitle(newTitle);
-    // setTitle((allTitles) => ([
-    //     ...allTitles,
-    //     {id: crypto.randomUUID(),
-    //     title: title}]));
 
     console.log(title);
     setPendingTitle("");
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <label htmlFor="series-title">Tytuł serialu:</label>
       <input
@@ -34,6 +31,8 @@ function AddNew() {
       />
       <button>Dodaj</button>
     </form>
+    <Link to="/">Powrót</Link>
+    </>
   );
 }
 
