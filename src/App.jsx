@@ -7,10 +7,15 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
-import AddNew from './components/AddNew/AddNew';
+
+//components
 import TitlesDisplay from './components/TitlesDisplay/TitlesDisplay';
+
+//pages
 import Layout from './components/Layout/Layout';
+import AddNew from './components/AddNew/AddNew';
 import Home from './pages/Home/Home';
+import About from './pages/About/About';
 
 export const TitlesContext = React.createContext();
 
@@ -19,8 +24,11 @@ const router = createBrowserRouter(
     <>
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
+      <Route path="about" element={<About/>} />
+      
     </Route>
-    <Route path="/addnew" element={<AddNew />} />
+    
+    <Route path="/addNew" element={<AddNew />} />
     </>
   )
   

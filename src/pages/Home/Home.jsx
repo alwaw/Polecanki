@@ -1,6 +1,15 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import TitlesDisplay from "../../components/TitlesDisplay/TitlesDisplay";
+
+
 function Home(){
     return (
-        <p>Home</p>
+        <>
+     
+        <Link to="/addNew">Dodaj</Link>
+        <TitlesDisplay />
+        </>
     )
 }
 

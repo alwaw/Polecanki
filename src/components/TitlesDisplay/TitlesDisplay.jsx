@@ -1,5 +1,6 @@
 import React from "react";
 import { TitlesContext } from "../../App";
+import styles from "./TitlesDisplay.module.css"
 
 function TitlesDisplay() {
 
@@ -9,13 +10,17 @@ function TitlesDisplay() {
     
     return(
         <>
-        <p>Seriale: </p>
+        <h3>Seriale:</h3> 
+        <div className={styles.wrapper}> 
+        
         {allTitles.map(({id, title})=>(
              (
              
-                <p key={id}>{title}</p>
+                <div key={id}>{title}</div>
         )
+        
         ))}
+        </div>
         </>
     )
 };
