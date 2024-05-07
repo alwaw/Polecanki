@@ -10,13 +10,16 @@ function TitlesDisplay() {
     
     return(
         <>
-        <h3>Seriale:</h3> 
+        <h3 className={styles.header}>Ostatnio dodane:</h3> 
         <div className={styles.wrapper}> 
         
-        {allTitles.map(({id, title})=>(
+        {allTitles.map(({id, title, titleImageSrc})=>(
              (
-             
-                <div key={id}>{title}</div>
+                <div key={id}>
+                <img className={styles.image} alt="plakat" src={titleImageSrc} />
+                <h4 className={styles.TitleFont}>{title}</h4>
+         
+                </div>
         )
         
         ))}
