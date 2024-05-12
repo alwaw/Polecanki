@@ -2,28 +2,16 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import TitlesDisplay from "../TitlesDisplay/TitlesDisplay";
 import styles from "./Layout.module.css";
+import Navbar from "../Navbar/Navbar";
 
 function Layout() {
   return (
     <>
-      <header className={styles.header}>
-        <NavLink to="/">
-        <img
-          className={styles.img}
-          alt="polecanki logo"
-          src="src\assets\polecanki.png"
-        />
-        </NavLink>
-
-        <nav className={styles.navbar}> 
-          <NavLink className={styles.navLink} to="/">Home </NavLink>
-          <NavLink className={styles.navLink} to="about">O projekcie </NavLink>
-        </nav>
-      </header>
+    <Navbar />
       <main>
         <Outlet />
       </main>
-    </>
+      </>
   );
 }
 
