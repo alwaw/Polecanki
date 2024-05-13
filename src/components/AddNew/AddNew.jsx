@@ -7,7 +7,6 @@ import styles from "./AddNew.module.css";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-
 function AddNew() {
   const { title, setTitle } = React.useContext(TitlesContext);
   const [pendingTitle, setPendingTitle] = React.useState("");
@@ -30,14 +29,13 @@ function AddNew() {
       }
 
       //The array consists of [i] arrays, and within each array is an object - I extract the value 'name' from it.
-      
 
       for (let i = 0; i < arrayOfGenresObj.length; i++) {
         let newItem = arrayOfGenresObj[i][0].name;
         arrayOfGenresNames.push(newItem); // finally, an array with genre names is being created.
       }
 
-      console.log(arrayOfGenresNames);
+      // console.log(arrayOfGenresNames);
 
       const data = {
         id: id,
@@ -54,12 +52,7 @@ function AddNew() {
       };
 
       setDataAPI(newObject);
-
-      
-
     }
-
-  
 
     const options = {
       method: "GET",
@@ -90,12 +83,7 @@ function AddNew() {
         );
       })
       .catch((err) => console.error(err));
-
-    
   }
-
- 
-  
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -112,25 +100,28 @@ function AddNew() {
 
     setTitle(newTitle);
 
-   
-
     // clear the field
     setPendingTitle("");
-
-
   }
 
-  //tutaj trzeba zrobić tak, aby tablica zaczęła działać i współpracować -
-  //konieczne jest mapowanie,
-  //zacznij od zamiany obiektu w tablicę Object.keys()
- 
-  function handlerGenre(){
+  //I convert the received object into an array and iterate over it, 
+  //creating a list of tags.Index in the array serves as the key — 
+  //I chose this solution because the list of tags will not be editable 
+  //(tags cannot be manually added—at least in this version, nor can they be removed).
+
+  function handlerGenre() {
     console.log(dataAPI.genre_tags);
-    let copyObj = {...dataAPI.genre_tags};
-    console.log(copyObj);
+    let copyObj = { ...dataAPI.genre_tags };
+    const arrayOfGenreTags = Object.values(copyObj);
+    console.log(arrayOfGenreTags);
+    return (
+      <ul className={styles.genreTagsWrapper}> 
+        {arrayOfGenreTags.map((genreTag, index) => {
+          return <li key={index} className={styles.genreTag}>{genreTag}</li>;
+        })}
+      </ul>
+    );
   }
-
-  
 
   return (
     <>
@@ -163,9 +154,10 @@ function AddNew() {
             <SearchIcon className={styles.searchIcon} />
           </IconButton>
         </div>
+     
         {/* Section with basic information about the series: title, description, and poster.*/}
         <section className={styles.posterAndOverview}>
-          <div >
+          <div>
             <img className={styles.poster} alt="" src={dataAPI.URL_IMAGE} />
           </div>
           <div className={styles.title}>
@@ -175,10 +167,7 @@ function AddNew() {
             <div>{dataAPI.overview}</div>
           </div>
         </section>
-        <section className={styles.genreTags}>
-      {handlerGenre()}
-     
-        </section>
+        <section className={styles.genreTags}>{handlerGenre()} </section>
 
         <p>{dataAPI.id}</p>
 
@@ -191,7 +180,5 @@ function AddNew() {
     </>
   );
 }
-
-
 
 export default AddNew;

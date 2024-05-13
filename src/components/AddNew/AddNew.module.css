@@ -62,6 +62,26 @@
     font-size: 15px;
 }
 
+/* genre tags */
+
+.genreTagsWrapper {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+}
+
+.genreTag {
+    list-style-type: none;
+    border: solid 1px white;
+    border-radius: 25px;
+    margin: 0 15px 0 0;
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+}
+
 
 
 
