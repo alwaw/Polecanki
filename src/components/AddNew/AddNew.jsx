@@ -11,11 +11,13 @@ function AddNew() {
   const { title, setTitle } = React.useContext(TitlesContext);
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
+  const [isFailed, setIsFailed] = React.useState("");
 
   let arrayOfGenresNames = [];
 
   function titleSearching(event) {
     event.preventDefault();
+    setDataAPI({}); // In the case of a new search, it clears the data related to the previous title.
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
@@ -81,8 +83,12 @@ function AddNew() {
           response.results[0].vote_average,
           response.results[0].genre_ids
         );
+        setIsFailed(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setIsFailed(true);
+      });
   }
 
   function handleSubmit(event) {
@@ -104,59 +110,46 @@ function AddNew() {
     setPendingTitle("");
   }
 
-  //I convert the received object into an array and iterate over it, 
-  //creating a list of tags.Index in the array serves as the key — 
-  //I chose this solution because the list of tags will not be editable 
+  //I convert the received object into an array and iterate over it,
+  //creating a list of tags. Index in the array serves as the key —
+  //I chose this solution because the list of tags will not be editable
   //(tags cannot be manually added—at least in this version, nor can they be removed).
-
   function handlerGenre() {
     console.log(dataAPI.genre_tags);
     let copyObj = { ...dataAPI.genre_tags };
     const arrayOfGenreTags = Object.values(copyObj);
     console.log(arrayOfGenreTags);
     return (
-      <ul className={styles.genreTagsWrapper}> 
+      <ul className={styles.genreTagsWrapper}>
         {arrayOfGenreTags.map((genreTag, index) => {
-          return <li key={index} className={styles.genreTag}>{genreTag}</li>;
+          return (
+            <li key={index} className={styles.genreTag}>
+              {genreTag}
+            </li>
+          );
         })}
       </ul>
     );
   }
 
-  return (
-    <>
-      <Navbar />
-      <form className={styles.formWrapper}>
-        <div className={styles.searchWrapper}>
-          <label htmlFor="series-title"></label>
+  //fetch has failed :-(
+  function NoResults() {
+    return (
+      <div key={dataAPI.id}>
+        <h2 className={styles.NoResults_header}>Ooops!</h2>
+        <p className={styles.NoResults_paragraph}>
+          Wygląda na to, że nie udało się odnaleźć podanego tytułu serialu.
+          Sprawdź, czy został on zapisany poprawnie i spróbuj jeszcze raz!{" "}
+        </p>
+      </div>
+    );
+  }
 
-          <input
-            className={styles.inputTitle}
-            id="series-title"
-            value={pendingTitle}
-            placeholder="Co ostatnio obejrzałeś?"
-            onChange={(event) => {
-              setPendingTitle(event.target.value);
-            }}
-          />
-
-          <IconButton
-            aria-label="search"
-            onClick={titleSearching}
-            className={styles.searchButton}
-            sx={{
-              backgroundColor: "white",
-              opacity: "0.8",
-              borderRadius: "5px",
-              height: "50px",
-            }}
-          >
-            <SearchIcon className={styles.searchIcon} />
-          </IconButton>
-        </div>
-     
-        {/* Section with basic information about the series: title, description, and poster.*/}
-        <section className={styles.posterAndOverview}>
+  //fetch has worked :-)
+  function ThereIsResult() {
+    return (
+      <>
+        <section key={dataAPI.id} className={styles.posterAndOverview}>
           <div>
             <img className={styles.poster} alt="" src={dataAPI.URL_IMAGE} />
           </div>
@@ -172,9 +165,48 @@ function AddNew() {
         <p>{dataAPI.id}</p>
 
         <p>{dataAPI.rating}</p>
-        {/* <p>{dataAPI.genre_tags}</p> */}
 
         <button onClick={handleSubmit}>Dodaj serial</button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Navbar />
+      <form onSubmit={titleSearching} className={styles.formWrapper}>
+        <div className={styles.searchWrapper}>
+          <label htmlFor="series-title"></label>
+
+          <input
+            className={styles.inputTitle}
+            id="series-title"
+            value={pendingTitle}
+            placeholder="Co ostatnio obejrzałeś?"
+            onChange={(event) => {
+              setPendingTitle(event.target.value);
+            }}
+          />
+
+          <IconButton
+            aria-label="search"
+            type="submit"
+            // onClick={titleSearching}
+            className={styles.searchButton}
+            sx={{
+              backgroundColor: "white",
+              opacity: "0.8",
+              borderRadius: "5px",
+              height: "50px",
+            }}
+          >
+            <SearchIcon className={styles.searchIcon} />
+          </IconButton>
+        </div>
+
+        {isFailed ? <NoResults /> : <ThereIsResult />}
+
+        {/* <p>{dataAPI.genre_tags}</p> */}
       </form>
       <Link to="/">Powrót</Link>
     </>
