@@ -4,14 +4,18 @@ import { Link } from "react-router-dom";
 import { GENRE_ID } from "../../utils/GENRE_ID";
 import Navbar from "../Navbar/Navbar";
 import styles from "./AddNew.module.css";
+import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+
+export const MAX_STAR_RATE = 10;
 
 function AddNew() {
   const { title, setTitle } = React.useContext(TitlesContext);
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
   const [isFailed, setIsFailed] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   let arrayOfGenresNames = [];
 
@@ -75,6 +79,7 @@ function AddNew() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
+        setIsLoading(true);
         getDataFromAPI(
           response.results[0].id,
           response.results[0].name,
@@ -84,10 +89,12 @@ function AddNew() {
           response.results[0].genre_ids
         );
         setIsFailed(false);
+
       })
       .catch((err) => {
         console.error(err);
         setIsFailed(true);
+
       });
   }
 
@@ -171,6 +178,16 @@ function AddNew() {
     );
   }
 
+  function whatShouldIRender() {
+    if (isLoading) {
+      if (isFailed) {
+        return <NoResults />
+      } else {
+        return <ThereIsResult />
+      }
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -204,7 +221,11 @@ function AddNew() {
           </IconButton>
         </div>
 
-        {isFailed ? <NoResults /> : <ThereIsResult />}
+    
+
+        {whatShouldIRender()}
+
+        <StarRatingTMDB ratingTMDB={dataAPI.rating}/>
 
         {/* <p>{dataAPI.genre_tags}</p> */}
       </form>
