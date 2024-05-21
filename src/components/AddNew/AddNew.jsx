@@ -20,6 +20,8 @@ function AddNew() {
   let arrayOfGenresNames = [];
 
   function titleSearching(event) {
+    setIsLoading(false);
+
     event.preventDefault();
     setDataAPI({}); // In the case of a new search, it clears the data related to the previous title.
 
@@ -89,12 +91,10 @@ function AddNew() {
           response.results[0].genre_ids
         );
         setIsFailed(false);
-
       })
       .catch((err) => {
         console.error(err);
         setIsFailed(true);
-
       });
   }
 
@@ -169,6 +169,8 @@ function AddNew() {
         </section>
         <section className={styles.genreTags}>{handlerGenre()} </section>
 
+        <StarRatingTMDB ratingTMDB={dataAPI.rating} />
+
         <p>{dataAPI.id}</p>
 
         <p>{dataAPI.rating}</p>
@@ -181,9 +183,9 @@ function AddNew() {
   function whatShouldIRender() {
     if (isLoading) {
       if (isFailed) {
-        return <NoResults />
+        return <NoResults />;
       } else {
-        return <ThereIsResult />
+        return <ThereIsResult />;
       }
     }
   }
@@ -221,11 +223,7 @@ function AddNew() {
           </IconButton>
         </div>
 
-    
-
         {whatShouldIRender()}
-
-        <StarRatingTMDB ratingTMDB={dataAPI.rating}/>
 
         {/* <p>{dataAPI.genre_tags}</p> */}
       </form>
