@@ -3,8 +3,6 @@ import styles from "./StarRatingTMDB.module.css";
 import { MAX_STAR_RATE } from "../AddNew/AddNew";
 
 function StarRatingTMDB({ ratingTMDB }) {
-  console.log(MAX_STAR_RATE);
-  console.log(ratingTMDB);
 
   const titleRate = Math.round(ratingTMDB);
 
@@ -12,25 +10,21 @@ function StarRatingTMDB({ ratingTMDB }) {
   const emptyStars = MAX_STAR_RATE - titleRate;
   const emptyStarsArray = new Array(emptyStars).fill(null);
 
-  let initialValue = 0;
-
   return (
     <div className={styles.wrapper}>
       {goldStarsArray.map(() => (
-        <span>
+        <span key={crypto.randomUUID()}>
           <img
             className={styles.singleStar}
-            key={initialValue++}
             src="src\assets\full_star.png"
             alt="gold star"
           />
         </span>
       ))}
       {emptyStarsArray.map(() => (
-        <span>
+        <span key={crypto.randomUUID()}>
           <img
             className={styles.singleStar}
-            key={initialValue++}
             src="src\assets\empty_star.png"
             alt="empty star"
           />

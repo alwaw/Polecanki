@@ -5,6 +5,7 @@ import { GENRE_ID } from "../../utils/GENRE_ID";
 import Navbar from "../Navbar/Navbar";
 import styles from "./AddNew.module.css";
 import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
+import StarRatingUser from "../StarRatingUser/StarRatingUser";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -170,6 +171,7 @@ function AddNew() {
         <section className={styles.genreTags}>{handlerGenre()} </section>
 
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
+        <StarRatingUser />
 
         <p>{dataAPI.id}</p>
 
