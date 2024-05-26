@@ -1,15 +1,22 @@
 .wrapper {
-    margin: 50px 0;
+  margin: 50px 0;
+  display: grid;
+  grid-template-columns: 150px auto 50px;
+
 }
 
 .singleStar {
-    width: 25px;
-    padding: 0 5px 0 0;
+  padding: 0 5px 0 0;
 }
 
+.header {
+  margin: 0 30px 0 0;
+}
+
+/* need to hide input button */
 .input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }

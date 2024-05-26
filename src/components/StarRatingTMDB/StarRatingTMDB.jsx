@@ -2,8 +2,10 @@ import React from "react";
 import styles from "./StarRatingTMDB.module.css";
 import { MAX_STAR_RATE } from "../AddNew/AddNew";
 
-function StarRatingTMDB({ ratingTMDB }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
+function StarRatingTMDB({ ratingTMDB }) {
   const titleRate = Math.round(ratingTMDB);
 
   const goldStarsArray = new Array(titleRate).fill(null);
@@ -12,24 +14,19 @@ function StarRatingTMDB({ ratingTMDB }) {
 
   return (
     <div className={styles.wrapper}>
+       <h3 className={styles.header}>Ocena TMDB: </h3>
+       <div>
       {goldStarsArray.map(() => (
         <span key={crypto.randomUUID()}>
-          <img
-            className={styles.singleStar}
-            src="src\assets\full_star.png"
-            alt="gold star"
-          />
+          <FontAwesomeIcon icon={faStar} size="xl" color="gold" className={styles.singleStar}/>
         </span>
       ))}
       {emptyStarsArray.map(() => (
         <span key={crypto.randomUUID()}>
-          <img
-            className={styles.singleStar}
-            src="src\assets\empty_star.png"
-            alt="empty star"
-          />
+          <FontAwesomeIcon icon={faStar} size="xl" className={styles.singleStar}/>
         </span>
       ))}
+      </div>
     </div>
   );
 }
