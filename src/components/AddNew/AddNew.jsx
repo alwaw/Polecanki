@@ -15,10 +15,13 @@ function AddNew() {
   const { title, setTitle } = React.useContext(TitlesContext);
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
+  const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children component
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
+
   let arrayOfGenresNames = [];
+
 
   function titleSearching(event) {
     setIsLoading(false);
@@ -109,6 +112,7 @@ function AddNew() {
         id: crypto.randomUUID(),
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
+        rating: userStarRate,
       },
     ];
 
@@ -171,16 +175,19 @@ function AddNew() {
         <section className={styles.genreTags}>{handlerGenre()} </section>
 
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
-        <StarRatingUser />
+        <StarRatingUser userStarRate={userStarRate} setUserStarRate={setUserStarRate}/>
 
         <p>{dataAPI.id}</p>
 
         <p>{dataAPI.rating}</p>
 
+        <div>{userStarRate}</div>
+
         <button onClick={handleSubmit}>Dodaj serial</button>
       </>
     );
   }
+
 
   function whatShouldIRender() {
     if (isLoading) {
@@ -226,6 +233,8 @@ function AddNew() {
         </div>
 
         {whatShouldIRender()}
+
+        
 
         {/* <p>{dataAPI.genre_tags}</p> */}
       </form>
