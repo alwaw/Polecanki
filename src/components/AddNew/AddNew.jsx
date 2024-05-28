@@ -16,8 +16,10 @@ function AddNew() {
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
   const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children component
+  
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before? 
 
 
   let arrayOfGenresNames = [];
@@ -25,6 +27,7 @@ function AddNew() {
 
   function titleSearching(event) {
     setIsLoading(false);
+    setIsAlreadyAdded(false);
 
     event.preventDefault();
     setDataAPI({}); // In the case of a new search, it clears the data related to the previous title.
@@ -84,7 +87,6 @@ function AddNew() {
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         setIsLoading(true);
         getDataFromAPI(
           response.results[0].id,
@@ -100,12 +102,31 @@ function AddNew() {
         console.error(err);
         setIsFailed(true);
       });
+
+      
   }
+
+  React.useEffect(() => {
+    const pendingTitleID = dataAPI.id;
+      const allTitles = [...title];
+      console.log(pendingTitleID);
+      console.log(allTitles);
+  
+      {allTitles.filter(function(title){
+        if (title.id === pendingTitleID) {
+          console.log(isAlreadyAdded);
+          return setIsAlreadyAdded(()=>true);
+        } 
+      })}
+  }, [dataAPI, title]);
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    //adding data about series to state => then display it in TitlesDisplay component
+   
+
+    if (!isAlreadyAdded) {
+      //adding data about series to state => then display it in TitlesDisplay component
     const newTitle = [
       ...title,
       {
@@ -113,13 +134,18 @@ function AddNew() {
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
         rating: userStarRate,
+        id: dataAPI.id,
       },
     ];
 
     setTitle(newTitle);
 
-    // clear the field
+    // clear the fields
     setPendingTitle("");
+    setUserStarRate(0);
+    setIsLoading(false);
+    }
+    
   }
 
   //I convert the received object into an array and iterate over it,
@@ -127,10 +153,8 @@ function AddNew() {
   //I chose this solution because the list of tags will not be editable
   //(tags cannot be manually added—at least in this version, nor can they be removed).
   function handlerGenre() {
-    console.log(dataAPI.genre_tags);
     let copyObj = { ...dataAPI.genre_tags };
     const arrayOfGenreTags = Object.values(copyObj);
-    console.log(arrayOfGenreTags);
     return (
       <ul className={styles.genreTagsWrapper}>
         {arrayOfGenreTags.map((genreTag, index) => {
@@ -177,27 +201,37 @@ function AddNew() {
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
         <StarRatingUser userStarRate={userStarRate} setUserStarRate={setUserStarRate}/>
 
-        <p>{dataAPI.id}</p>
-
-        <p>{dataAPI.rating}</p>
-
-        <div>{userStarRate}</div>
+  
 
         <button onClick={handleSubmit}>Dodaj serial</button>
       </>
     );
   }
 
+  //fetch has worked :-) but title is duplicated :-( 
+  function DuplicatedTitle() {
+    return (
+      <div> Wygląda na to, że ten serial został już przez Ciebie dodany. 
+        Możesz zmienić jego ocenę lub dodać opinię edytując go w ekranie głównym. 
+      </div>
+    )
+  }
+
 
   function whatShouldIRender() {
+
     if (isLoading) {
       if (isFailed) {
-        return <NoResults />;
+        return <NoResults />
+      } else if (isAlreadyAdded) {
+        return <DuplicatedTitle />
       } else {
-        return <ThereIsResult />;
+        return <ThereIsResult />
       }
     }
   }
+
+
 
   return (
     <>
@@ -236,9 +270,9 @@ function AddNew() {
 
         
 
-        {/* <p>{dataAPI.genre_tags}</p> */}
+    
       </form>
-      <Link to="/">Powrót</Link>
+
     </>
   );
 }

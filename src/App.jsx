@@ -20,14 +20,14 @@ import About from './pages/About/About';
 export const TitlesContext = React.createContext();
 
 //todo:
-//1 - czyszczenie oceny usera po dodaniu serialu to TitleDisplay
-//2 - walidacja (powtarzanie się tytułów serialu)
-//3 - wyczyszczenie z console.logów
-//4 - wyczyszczenie komponentu AddNew z niepotrzebnych danych
+//1 - czyszczenie oceny usera po dodaniu serialu to TitleDisplay - OK
+//2 - walidacja (powtarzanie się tytułów serialu) - generalnie OK, dodać CSS
+//3 - wyczyszczenie z console.logów - OK
+//4 - wyczyszczenie komponentu AddNew z niepotrzebnych danych - OK
 //5 - wyświetlanie się oceny usera obok gwiazdek? 
 //6 - pole do komentarza usera
 //7 - ładniejszy przycisk Dodaje serial
-//8 - usunięcie przycisku Powrót z AddNew
+//8 - usunięcie przycisku Powrót z AddNew - OK
 
 const router = createBrowserRouter(
   createRoutesFromElements(
