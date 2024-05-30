@@ -16,21 +16,19 @@ function AddNew() {
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
   const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children component
-  
+
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before? 
-
+  const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
 
   let arrayOfGenresNames = [];
 
-
   function titleSearching(event) {
-    setIsLoading(false);
-    setIsAlreadyAdded(false);
-
     event.preventDefault();
-    setDataAPI({}); // In the case of a new search, it clears the data related to the previous title.
+
+    setIsFailed(false); // Reset failure state
+    setIsAlreadyAdded(false); // Reset already added state
+    setDataAPI({}); // Clear previous data
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
@@ -87,46 +85,45 @@ function AddNew() {
     )
       .then((response) => response.json())
       .then((response) => {
-        setIsLoading(true);
-        getDataFromAPI(
-          response.results[0].id,
-          response.results[0].name,
-          response.results[0].poster_path,
-          response.results[0].overview,
-          response.results[0].vote_average,
-          response.results[0].genre_ids
-        );
-        setIsFailed(false);
+        if (response.results && response.results.length > 0) {
+          const firstResult = response.results[0];
+
+          //checking if duplicated
+          const allTitles = [...title];
+          const validation = allTitles.find(
+            (title) => firstResult.id === title.id
+          );
+
+          if (validation) {
+            setIsAlreadyAdded(true);
+          } else {
+            setIsLoading(true);
+            getDataFromAPI(
+              response.results[0].id,
+              response.results[0].name,
+              response.results[0].poster_path,
+              response.results[0].overview,
+              response.results[0].vote_average,
+              response.results[0].genre_ids
+            );
+            setIsFailed(false);
+          }
+        }
       })
       .catch((err) => {
         console.error(err);
         setIsFailed(true);
       });
-
-      
   }
-
-  React.useEffect(() => {
-    const pendingTitleID = dataAPI.id;
-      const allTitles = [...title];
-      console.log(pendingTitleID);
-      console.log(allTitles);
-  
-      {allTitles.filter(function(title){
-        if (title.id === pendingTitleID) {
-          console.log(isAlreadyAdded);
-          return setIsAlreadyAdded(()=>true);
-        } 
-      })}
-  }, [dataAPI, title]);
 
   function handleSubmit(event) {
     event.preventDefault();
 
-   
+    if (userStarRate === 0) {
+      return window.alert("Zapomniałeś ocenić!");
+    }
 
-    if (!isAlreadyAdded) {
-      //adding data about series to state => then display it in TitlesDisplay component
+    //adding data about series to state => then display it in TitlesDisplay component
     const newTitle = [
       ...title,
       {
@@ -144,8 +141,7 @@ function AddNew() {
     setPendingTitle("");
     setUserStarRate(0);
     setIsLoading(false);
-    }
-    
+    setIsAlreadyAdded(false);
   }
 
   //I convert the received object into an array and iterate over it,
@@ -199,39 +195,40 @@ function AddNew() {
         <section className={styles.genreTags}>{handlerGenre()} </section>
 
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
-        <StarRatingUser userStarRate={userStarRate} setUserStarRate={setUserStarRate}/>
-
-  
+        <StarRatingUser
+          userStarRate={userStarRate}
+          setUserStarRate={setUserStarRate}
+        />
 
         <button onClick={handleSubmit}>Dodaj serial</button>
       </>
     );
   }
 
-  //fetch has worked :-) but title is duplicated :-( 
+  //fetch has worked :-) but title is duplicated :-(
   function DuplicatedTitle() {
     return (
-      <div> Wygląda na to, że ten serial został już przez Ciebie dodany. 
-        Możesz zmienić jego ocenę lub dodać opinię edytując go w ekranie głównym. 
+      <div>
+        {" "}
+        Wygląda na to, że ten serial został już przez Ciebie dodany. Możesz
+        zmienić jego ocenę lub dodać opinię edytując go w ekranie głównym.
       </div>
-    )
+    );
   }
-
 
   function whatShouldIRender() {
+    if (isLoading && isFailed) {
+      return <NoResults />;
+    }
 
-    if (isLoading) {
-      if (isFailed) {
-        return <NoResults />
-      } else if (isAlreadyAdded) {
-        return <DuplicatedTitle />
-      } else {
-        return <ThereIsResult />
-      }
+    if (isAlreadyAdded) {
+      return <DuplicatedTitle />;
+    }
+
+    if (isLoading && !isAlreadyAdded) {
+      return <ThereIsResult />;
     }
   }
-
-
 
   return (
     <>
@@ -267,12 +264,7 @@ function AddNew() {
         </div>
 
         {whatShouldIRender()}
-
-        
-
-    
       </form>
-
     </>
   );
 }

@@ -20,6 +20,8 @@ import About from './pages/About/About';
 export const TitlesContext = React.createContext();
 
 //todo:
+
+
 //1 - czyszczenie oceny usera po dodaniu serialu to TitleDisplay - OK
 //2 - walidacja (powtarzanie się tytułów serialu) - generalnie OK, dodać CSS
 //3 - wyczyszczenie z console.logów - OK
