@@ -2,12 +2,16 @@ import React from "react";
 import { TitlesContext } from "../../App";
 import { Link } from "react-router-dom";
 import { GENRE_ID } from "../../utils/GENRE_ID";
+
 import Navbar from "../Navbar/Navbar";
 import styles from "./AddNew.module.css";
 import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
 import StarRatingUser from "../StarRatingUser/StarRatingUser";
+import UserReview from "../UserReview/UserReview"
+
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+
 
 export const MAX_STAR_RATE = 10;
 
@@ -16,10 +20,12 @@ function AddNew() {
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
   const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children component
+  const [review, setReview] = React.useState(""); //getting user review from user
 
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
+
 
   let arrayOfGenresNames = [];
 
@@ -131,7 +137,8 @@ function AddNew() {
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
         rating: userStarRate,
-        id: dataAPI.id,
+        id: dataAPI.id, 
+        review: review,
       },
     ];
 
@@ -193,14 +200,19 @@ function AddNew() {
           </div>
         </section>
         <section className={styles.genreTags}>{handlerGenre()} </section>
-
+      <div className={styles.ratingWrapper}>
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
         <StarRatingUser
           userStarRate={userStarRate}
           setUserStarRate={setUserStarRate}
         />
-
-        <button onClick={handleSubmit}>Dodaj serial</button>
+        </div>
+        <UserReview maxChars={500} review={review} setReview={setReview}/>
+        <div className={styles.buttonWrapper}>
+          <button className={styles.addButton} onClick={handleSubmit}>
+            Dodaj 
+          </button>
+        </div>
       </>
     );
   }

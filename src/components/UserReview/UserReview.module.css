@@ -1,0 +1,14 @@
+/* label and chars counter*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textarea {
+    margin: 0 0 45px 0 ;
+    width: 700px;
+    height: 150px;
+    font-size: 18px; 
+}

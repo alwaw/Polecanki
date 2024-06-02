@@ -13,7 +13,7 @@ function TitlesDisplay() {
     <>
       <h3 className={styles.header}>Ostatnio dodane:</h3>
       <div className={styles.wrapper}>
-        {allTitles.map(({ id, title, titleImageSrc, rating }) => (
+        {allTitles.map(({ id, title, titleImageSrc, rating, review }) => (
           <div key={id}>
             <div className={styles.ratingBadgeWrapper}>
               <FontAwesomeIcon

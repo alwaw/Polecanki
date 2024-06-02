@@ -28,7 +28,7 @@ export const TitlesContext = React.createContext();
 //4 - wyczyszczenie komponentu AddNew z niepotrzebnych danych - OK
 //5 - wyświetlanie się oceny usera obok gwiazdek? 
 //6 - pole do komentarza usera
-//7 - ładniejszy przycisk Dodaje serial
+//7 - ładniejszy przycisk Dodaj serial
 //8 - usunięcie przycisku Powrót z AddNew - OK
 
 const router = createBrowserRouter(
