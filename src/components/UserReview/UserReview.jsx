@@ -1,13 +1,26 @@
 import React from "react";
+import { useMemo } from "react";
 import styles from "./UserReview.module.css";
 import { REVIEWS_PLACEHOLDERS } from "../../utils/REVIEWS_PLACEHOLDER";
 
-function UserReview({ maxChars, review,setReview }) {
-  
 
-  const randomIndex = Math.floor(Math.random() * REVIEWS_PLACEHOLDERS.length);
+const randomIndex = Math.floor(Math.random() * REVIEWS_PLACEHOLDERS.length);
+
+
+
+function UserReview({ maxChars, review,setReview }) {
+  const [pendingReview, setPendingReview] = React.useState(review);
+  const [isDisabled, setIsDisabled] = React.useState(false); // disabled textarea
+  
+  const handleReview = (event) => {
+    event.preventDefault();
+    setReview(pendingReview);
+    setIsDisabled(true);
+  }
 
   const charsRemaining = maxChars - review.length;
+
+
     return (
   <>
     <div className={styles.header}>
@@ -16,12 +29,14 @@ function UserReview({ maxChars, review,setReview }) {
     </div>
     <textarea
       id="review-field"
-      value={review}
+      value={pendingReview}
       className={styles.textarea}
       maxLength={maxChars}
       placeholder={REVIEWS_PLACEHOLDERS[randomIndex]}
-      onChange={(event) => setReview(event.target.value)}
+      onChange={(event) => setPendingReview(event.target.value)}
+      disabled={isDisabled}
     />
+    <button className={styles.button} onClick={handleReview}>Dodaj opinię</button>
   </>
     );
 }

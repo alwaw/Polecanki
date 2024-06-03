@@ -26,6 +26,7 @@ function TitlesDisplay() {
             </div>
             <img className={styles.image} alt="plakat" src={titleImageSrc} />
             <h4 className={styles.TitleFont}>{title}</h4>
+            <div>{review}</div>
           </div>
         ))}
       </div>
