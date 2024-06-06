@@ -30,6 +30,8 @@ export const TitlesContext = React.createContext();
 //6 - pole do komentarza usera
 //7 - ładniejszy przycisk Dodaj serial
 //8 - usunięcie przycisku Powrót z AddNew - OK
+//9 - textarea - po dodaniu opinii znika textarea, pojawia się po
+// po prostu paragraf z opinią. niżej przycisk Edytuj
 
 const router = createBrowserRouter(
   createRoutesFromElements(

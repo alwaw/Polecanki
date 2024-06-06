@@ -31,10 +31,13 @@ function AddNew() {
 
   function titleSearching(event) {
     event.preventDefault();
-
+    setUserStarRate(0);
+    setIsLoading(false);
     setIsFailed(false); // Reset failure state
     setIsAlreadyAdded(false); // Reset already added state
     setDataAPI({}); // Clear previous data
+    console.log(isFailed);
+    console.log(pendingTitle);
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
@@ -92,31 +95,34 @@ function AddNew() {
       .then((response) => response.json())
       .then((response) => {
         if (response.results && response.results.length > 0) {
+          // Processing data when search results exist.
           const firstResult = response.results[0];
-
-          //checking if duplicated
           const allTitles = [...title];
           const validation = allTitles.find(
             (title) => firstResult.id === title.id
           );
-
+      
           if (validation) {
             setIsAlreadyAdded(true);
           } else {
             setIsLoading(true);
             getDataFromAPI(
-              response.results[0].id,
-              response.results[0].name,
-              response.results[0].poster_path,
-              response.results[0].overview,
-              response.results[0].vote_average,
-              response.results[0].genre_ids
+              firstResult.id,
+              firstResult.name,
+              firstResult.poster_path,
+              firstResult.overview,
+              firstResult.vote_average,
+              firstResult.genre_ids
             );
             setIsFailed(false);
           }
+        } else {
+          // Handling the situation when there are no search results.
+          setIsFailed(true); // 
         }
       })
       .catch((err) => {
+        console.log("catch działa")
         console.error(err);
         setIsFailed(true);
       });
@@ -149,6 +155,7 @@ function AddNew() {
     setUserStarRate(0);
     setIsLoading(false);
     setIsAlreadyAdded(false);
+   
   }
 
   //I convert the received object into an array and iterate over it,
@@ -229,7 +236,7 @@ function AddNew() {
   }
 
   function whatShouldIRender() {
-    if (isLoading && isFailed) {
+    if (isFailed) {
       return <NoResults />;
     }
 
@@ -237,9 +244,11 @@ function AddNew() {
       return <DuplicatedTitle />;
     }
 
-    if (isLoading && !isAlreadyAdded) {
+    if (isLoading && !isAlreadyAdded && !isFailed) {
       return <ThereIsResult />;
     }
+
+    
   }
 
   return (

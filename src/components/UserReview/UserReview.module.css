@@ -7,9 +7,73 @@
 }
 
 .textarea {
-    margin: 0 0 45px 0 ;
+    margin: 0 0 10px 0 ;
     width: 700px;
+    padding: 0;
     height: 150px;
     font-size: 18px; 
 }
+
+/* buttons wrapper */
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 0 0 50px
+}
+
+/* buttons */
+
+.buttonAdd {
+
+    box-shadow: 0px 1px 0px 0px #fff6af;
+	background-color:#ffec64;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+    
+}
+
+.buttonAdd:hover {
+	background-color:#ffab23;
+}
+.buttonAdd:active {
+	position:relative;
+	top:1px;
+}
+
+
+.buttonEdit {
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background-color:#242424;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.buttonEdit:hover {
+	background-color:#ffab23;
+}
+.buttonEdit:active {
+	position:relative;
+	top:1px;
+}
+
+        
 
