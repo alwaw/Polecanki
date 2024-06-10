@@ -1,47 +1,48 @@
 import React from "react";
 import { TitlesContext } from "../../App";
 import { Link } from "react-router-dom";
+
+import styles from "./AddNew.module.css";
+
 import { GENRE_ID } from "../../utils/GENRE_ID";
 
 import Navbar from "../Navbar/Navbar";
-import styles from "./AddNew.module.css";
-import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
-import StarRatingUser from "../StarRatingUser/StarRatingUser";
-import UserReview from "../UserReview/UserReview"
+import ThereIsResult from "../ThereIsResult/ThereIsResult";
+import DuplicatedTitle from "../DuplicatedTitle/DuplicatedTitle";
+import NoResults from "../NoResults/NoResults";
 
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-
 export const MAX_STAR_RATE = 10;
 
 function AddNew() {
-  const { title, setTitle } = React.useContext(TitlesContext);
+  const { title } = React.useContext(TitlesContext);
+  
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
-  const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children component
-  const [review, setReview] = React.useState(""); //getting user review from user
 
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
-
+  const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children componentv
 
   let arrayOfGenresNames = [];
 
   function titleSearching(event) {
     event.preventDefault();
+
+    //resetting all values:
     setUserStarRate(0);
-    setIsLoading(false);
+    setIsLoading(false); // there is no result right now
     setIsFailed(false); // Reset failure state
     setIsAlreadyAdded(false); // Reset already added state
     setDataAPI({}); // Clear previous data
-    console.log(isFailed);
-    console.log(pendingTitle);
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
-      //I'm comparing IDs retrieved from the TMDB API with an array containing IDs and names of genres GENRE_ID.
+      //I'm comparing IDs retrieved from the TMDB API 
+      //with an array containing IDs and names of genres GENRE_ID.
       const genre_ids = genre;
       let arrayOfGenresObj = [];
 
@@ -50,11 +51,13 @@ function AddNew() {
         arrayOfGenresObj.push(newItem);
       }
 
-      //The array consists of [i] arrays, and within each array is an object - I extract the value 'name' from it.
+      //The array consists of [i] arrays, and within 
+      //each array is an object - I extract the value 'name' from it.
 
       for (let i = 0; i < arrayOfGenresObj.length; i++) {
         let newItem = arrayOfGenresObj[i][0].name;
-        arrayOfGenresNames.push(newItem); // finally, an array with genre names is being created.
+        arrayOfGenresNames.push(newItem); // finally, an array 
+        //with genre names is being created.
       }
 
       // console.log(arrayOfGenresNames);
@@ -87,7 +90,8 @@ function AddNew() {
 
     const titleURL = encodeURIComponent(pendingTitle);
 
-    //fetch basic data: id, title (name), img src, overwiev, rating and genre ids
+    //fetch basic data: id, title (name), img src, overwiev, 
+    //rating and genre ids
     fetch(
       `https://api.themoviedb.org/3/search/tv?query=${titleURL}&include_adult=false&language=en-US&page=1`,
       options
@@ -101,7 +105,7 @@ function AddNew() {
           const validation = allTitles.find(
             (title) => firstResult.id === title.id
           );
-      
+
           if (validation) {
             setIsAlreadyAdded(true);
           } else {
@@ -118,121 +122,22 @@ function AddNew() {
           }
         } else {
           // Handling the situation when there are no search results.
-          setIsFailed(true); // 
+          setIsFailed(true); //
         }
       })
       .catch((err) => {
-        console.log("catch działa")
+        console.log("catch działa");
         console.error(err);
         setIsFailed(true);
       });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (userStarRate === 0) {
-      return window.alert("Zapomniałeś ocenić!");
-    }
-
-    //adding data about series to state => then display it in TitlesDisplay component
-    const newTitle = [
-      ...title,
-      {
-        id: crypto.randomUUID(),
-        title: dataAPI.title,
-        titleImageSrc: dataAPI.URL_IMAGE,
-        rating: userStarRate,
-        id: dataAPI.id, 
-        review: review,
-      },
-    ];
-
-    setTitle(newTitle);
-
-    // clear the fields
+  //I'm passing a reset function to a lower-level component 
+  //that resets values used only in that component.
+  function cleanupFunction() {
     setPendingTitle("");
-    setUserStarRate(0);
     setIsLoading(false);
     setIsAlreadyAdded(false);
-   
-  }
-
-  //I convert the received object into an array and iterate over it,
-  //creating a list of tags. Index in the array serves as the key —
-  //I chose this solution because the list of tags will not be editable
-  //(tags cannot be manually added—at least in this version, nor can they be removed).
-  function handlerGenre() {
-    let copyObj = { ...dataAPI.genre_tags };
-    const arrayOfGenreTags = Object.values(copyObj);
-    return (
-      <ul className={styles.genreTagsWrapper}>
-        {arrayOfGenreTags.map((genreTag, index) => {
-          return (
-            <li key={index} className={styles.genreTag}>
-              {genreTag}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-
-  //fetch has failed :-(
-  function NoResults() {
-    return (
-      <div key={dataAPI.id}>
-        <h2 className={styles.NoResults_header}>Ooops!</h2>
-        <p className={styles.NoResults_paragraph}>
-          Wygląda na to, że nie udało się odnaleźć podanego tytułu serialu.
-          Sprawdź, czy został on zapisany poprawnie i spróbuj jeszcze raz!{" "}
-        </p>
-      </div>
-    );
-  }
-
-  //fetch has worked :-)
-  function ThereIsResult() {
-    return (
-      <>
-        <section key={dataAPI.id} className={styles.posterAndOverview}>
-          <div>
-            <img className={styles.poster} alt="" src={dataAPI.URL_IMAGE} />
-          </div>
-          <div className={styles.title}>
-            <div>{dataAPI.title}</div>
-          </div>
-          <div className={styles.overview}>
-            <div>{dataAPI.overview}</div>
-          </div>
-        </section>
-        <section className={styles.genreTags}>{handlerGenre()} </section>
-      <div className={styles.ratingWrapper}>
-        <StarRatingTMDB ratingTMDB={dataAPI.rating} />
-        <StarRatingUser
-          userStarRate={userStarRate}
-          setUserStarRate={setUserStarRate}
-        />
-        </div>
-        <UserReview maxChars={500} review={review} setReview={setReview}/>
-        <div className={styles.buttonWrapper}>
-          <button className={styles.addButton} onClick={handleSubmit}>
-            Dodaj 
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  //fetch has worked :-) but title is duplicated :-(
-  function DuplicatedTitle() {
-    return (
-      <div>
-        {" "}
-        Wygląda na to, że ten serial został już przez Ciebie dodany. Możesz
-        zmienić jego ocenę lub dodać opinię edytując go w ekranie głównym.
-      </div>
-    );
   }
 
   function whatShouldIRender() {
@@ -245,10 +150,15 @@ function AddNew() {
     }
 
     if (isLoading && !isAlreadyAdded && !isFailed) {
-      return <ThereIsResult />;
+      return (
+        <ThereIsResult
+          dataAPI={dataAPI}
+          userStarRate={userStarRate}
+          setUserStarRate={setUserStarRate}
+          cleanupFunction={cleanupFunction}
+        />
+      );
     }
-
-    
   }
 
   return (
@@ -271,7 +181,6 @@ function AddNew() {
           <IconButton
             aria-label="search"
             type="submit"
-            // onClick={titleSearching}
             className={styles.searchButton}
             sx={{
               backgroundColor: "white",

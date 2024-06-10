@@ -1,58 +1,57 @@
 import React from "react";
 import styles from "./UserReview.module.css";
 import { REVIEWS_PLACEHOLDERS } from "../../utils/REVIEWS_PLACEHOLDER";
+import useReviewStore from '../../useReviewStore'; // Import the Zustand store
 
 const randomIndex = Math.floor(Math.random() * REVIEWS_PLACEHOLDERS.length);
 
-function UserReview({ maxChars, review, setReview }) {
-  const [pendingReview, setPendingReview] = React.useState(review);
-  const [reviewState, setReviewState] = React.useState("empty");
-  // empty - there is no review, user hasn't started writing yet - empty textarea
-  // added - user has added review - there is no textarea, only <p> and button "edit"
-  // edited - user has clicked "edit" button - <p> changes into textarea again
+function UserReview({ maxChars }) {
+  const {
+    review,
+    reviewState,
+    setReview,
+    setReviewState,
+  } = useReviewStore();
 
- 
-    if (reviewState === "empty" || reviewState === "edited") {
-      return (
-        <EditableTextArea
-          maxChars={maxChars}
-          setReview={setReview}
-          setReviewState={setReviewState}
-          review={review}
-          pendingReview={pendingReview}
-          setPendingReview={setPendingReview}
-          reviewState={reviewState}
-        />
-      );
-    }
+  if (reviewState === "empty" || reviewState === "edited") {
+    console.log("reviewState ma być puste lub edytowane " + reviewState);
+    return (
+      <EditableTextArea
+        maxChars={maxChars}
+        setReview={setReview}
+        setReviewState={setReviewState}
+        review={review}
+        reviewState={reviewState}
+      />
+    );
+  }
 
-    if (reviewState === "added") {
-      return <ReviewFromUser pendingReview={pendingReview} />;
-    }
-  
-
-  
+  if (reviewState === "added") {
+    console.log("review State powinno być added " + reviewState);
+    return (
+      <ReviewFromUser
+        review={review}
+        setReviewState={setReviewState}
+        reviewState={reviewState}
+      />
+    );
+  }
 }
 
 function EditableTextArea({
   maxChars,
   setReview,
   review,
-  pendingReview,
-  setPendingReview,
   setReviewState,
   reviewState,
 }) {
-  const charsRemaining = maxChars - pendingReview.length;
+  const charsRemaining = maxChars - review.length;
 
   // user has added a review:
   const addReview = (event) => {
     event.preventDefault();
-    
     setReviewState("added");
-    setReview(pendingReview);
-    console.log(pendingReview);
-    console.log(reviewState);
+    console.log("user dodał recenzję przyciskiem: " + reviewState);
   };
 
   return (
@@ -67,15 +66,15 @@ function EditableTextArea({
       </div>
       <textarea
         id="review-field"
-        value={pendingReview}
+        value={review}
         className={styles.textarea}
         maxLength={maxChars}
         placeholder={REVIEWS_PLACEHOLDERS[randomIndex]}
-        onChange={(event) => setPendingReview(event.target.value)}
+        onChange={(event) => setReview(event.target.value)}
       />
       <div className={styles.buttonWrapper}>
         <button
-          className={styles.buttonAdd}
+          className={styles.button}
           onClick={(event) => {
             addReview(event);
           }}
@@ -87,8 +86,20 @@ function EditableTextArea({
   );
 }
 
-function ReviewFromUser({ pendingReview }) {
-  return <div>{pendingReview}</div>;
+function ReviewFromUser({ review, setReviewState, reviewState }) {
+  function editReview() {
+    setReviewState("edited");
+    console.log("po dodaniu recenzji: " + reviewState);
+  }
+
+  return (
+    <div className={styles.reviewWrapper}>
+      <div>{review}</div>
+      <button onClick={() => editReview()} className={styles.button}>
+        Edytuj
+      </button>
+    </div>
+  );
 }
 
 export default UserReview;

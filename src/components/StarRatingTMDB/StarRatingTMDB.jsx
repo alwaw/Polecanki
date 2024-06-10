@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./StarRatingTMDB.module.css";
-import { MAX_STAR_RATE } from "../AddNew/AddNew";
+import { MAX_STAR_RATE } from "../AddNew/AddNew"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";

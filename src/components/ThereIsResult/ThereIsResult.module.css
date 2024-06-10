@@ -1,0 +1,83 @@
+/* basic info: poster, title and overview*/
+
+.posterAndOverview {
+    display: flex;
+    height: 300px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 60px 0; 
+}
+
+.poster {
+    height: 300px;
+}
+
+.title {
+    font-size: 30px;
+    padding: 0 20px 40px 0px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.overview {
+    width: 420px;
+    font-size: 15px;
+}
+
+/* genre tags */
+
+.genreTagsWrapper {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+}
+
+.genreTag {
+    list-style-type: none;
+    border: solid 1px white;
+    border-radius: 25px;
+    margin: 0 15px 0 0;
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+}
+
+/* rating stars */
+.ratingWrapper {
+    margin: 50px 0
+}
+
+
+/* submitting button */ 
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.addButton {
+    box-shadow: 0px 1px 0px 0px #fff6af;
+	background-color:#ffec64;
+	border-radius:15px;
+	border:2px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:20px 50px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+
+.addButtton:hover {
+    background-color:#ffab23;
+}
+
+.addButton:active {
+    position:relative;
+	top:1px;
+}

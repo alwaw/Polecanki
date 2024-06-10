@@ -4,8 +4,11 @@ import styles from "./TitlesDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
+import useReviewStore from '../../useReviewStore'; // Import the Zustand store
+
 function TitlesDisplay() {
-  const { title, setTitle } = React.useContext(TitlesContext);
+  const { title } = React.useContext(TitlesContext);
+  const { review } = useReviewStore();
 
   const allTitles = [...title];
 
