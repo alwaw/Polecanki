@@ -12,6 +12,11 @@ function UserReview({ maxChars }) {
     setReview,
     setReviewState,
   } = useReviewStore();
+  
+  //review state:
+  // empty - there is no review, user hasn't started writing yet - empty textarea (default state)
+  // added - user has added review - there is no textarea, only <p> and button "edit"
+  // edited - user has clicked "edit" button - <p> changes into textarea again
 
   if (reviewState === "empty" || reviewState === "edited") {
     console.log("reviewState ma być puste lub edytowane " + reviewState);
@@ -51,7 +56,6 @@ function EditableTextArea({
   const addReview = (event) => {
     event.preventDefault();
     setReviewState("added");
-    console.log("user dodał recenzję przyciskiem: " + reviewState);
   };
 
   return (
@@ -94,8 +98,8 @@ function ReviewFromUser({ review, setReviewState, reviewState }) {
 
   return (
     <div className={styles.reviewWrapper}>
-      <div>{review}</div>
-      <button onClick={() => editReview()} className={styles.button}>
+      <div className={styles.review}>{review}</div>
+      <button onClick={() => editReview()} className={styles.editButton}>
         Edytuj
       </button>
     </div>
