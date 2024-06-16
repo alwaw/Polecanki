@@ -1,48 +1,4 @@
-/* basic info: poster, title and overview*/
 
-.posterAndOverview {
-    display: flex;
-    height: 300px;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 60px 0; 
-}
-
-.poster {
-    height: 300px;
-}
-
-.title {
-    font-size: 30px;
-    padding: 0 20px 40px 0px;
-    margin: 0;
-    font-weight: bold;
-}
-
-.overview {
-    width: 420px;
-    font-size: 15px;
-}
-
-/* genre tags */
-
-.genreTagsWrapper {
-    display: flex;
-    margin: 0;
-    padding: 0;
-
-}
-
-.genreTag {
-    list-style-type: none;
-    border: solid 1px white;
-    border-radius: 25px;
-    margin: 0 15px 0 0;
-    padding: 5px 15px;
-    background-color: white;
-    color: black;
-    font-weight: 600;
-}
 
 /* rating stars */
 .ratingWrapper {
@@ -54,15 +10,16 @@
 
 .buttonWrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-content: space-between;
+    gap: 20px;
 }
 
 .addButton {
-    box-shadow: 0px 1px 0px 0px #fff6af;
+    width: 250px;
 	background-color:#ffec64;
 	border-radius:15px;
-	border:2px solid #ffaa22;
-	display:inline-block;
+    align-self: center;
 	cursor:pointer;
 	color:#333333;
 	font-family:Arial;
@@ -77,7 +34,23 @@
     background-color:#ffab23;
 }
 
-.addButton:active {
+.addButton:active:enabled {
     position:relative;
 	top:1px;
 }
+
+.addButton:disabled {
+    background-color:transparent;
+    text-shadow: none;
+    color:grey;
+}
+
+/* tip for user when submitting button is disabled */
+
+.tipSpan {
+   justify-self: center;
+   text-align: center;
+   color: grey;
+
+}
+

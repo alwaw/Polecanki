@@ -1,6 +1,7 @@
 import React from "react";
 import { TitlesContext } from "../../App";
 import { Link } from "react-router-dom";
+import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import styles from "./AddNew.module.css";
 
@@ -22,6 +23,8 @@ function AddNew() {
   const [pendingTitle, setPendingTitle] = React.useState("");
   const [dataAPI, setDataAPI] = React.useState({});
 
+  const { setReview, setReviewState } = useReviewStore(); 
+
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
@@ -32,15 +35,20 @@ function AddNew() {
   function titleSearching(event) {
     event.preventDefault();
 
+
+
     //resetting all values:
     setUserStarRate(0);
     setIsLoading(false); // there is no result right now
     setIsFailed(false); // Reset failure state
     setIsAlreadyAdded(false); // Reset already added state
     setDataAPI({}); // Clear previous data
+    setReview(""); // clear previous review from user
+    setReviewState("empty") // clear review state
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
+
       //I'm comparing IDs retrieved from the TMDB API 
       //with an array containing IDs and names of genres GENRE_ID.
       const genre_ids = genre;
@@ -59,8 +67,6 @@ function AddNew() {
         arrayOfGenresNames.push(newItem); // finally, an array 
         //with genre names is being created.
       }
-
-      // console.log(arrayOfGenresNames);
 
       const data = {
         id: id,
@@ -126,7 +132,6 @@ function AddNew() {
         }
       })
       .catch((err) => {
-        console.log("catch działa");
         console.error(err);
         setIsFailed(true);
       });
