@@ -1,16 +1,27 @@
 import React from "react";
+import { useRef } from "react";
 import { TitlesContext } from "../../App";
 import styles from "./TitlesDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-import useReviewStore from '../../useReviewStore'; // Import the Zustand store
+import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 function TitlesDisplay() {
   const { title } = React.useContext(TitlesContext);
   const { review } = useReviewStore();
 
   const allTitles = [...title];
+
+  const dialogRef = useRef(null);
+
+  const openDialog = () => {
+      dialogRef.current.showModal();
+  };
+
+  const closeDialog = () => {
+      dialogRef.current.close();
+  };
 
   return (
     <>
@@ -27,9 +38,15 @@ function TitlesDisplay() {
               />
               <span className={styles.ratingBadgeNumber}>{rating}</span>
             </div>
-            <img className={styles.image} alt="plakat" src={titleImageSrc} />
+            <button id="open" onClick={openDialog}>
+              <img className={styles.image} alt="plakat" src={titleImageSrc} />{" "}
+            </button>
             <h4 className={styles.TitleFont}>{title}</h4>
             <div>{review}</div>
+            <dialog id="dialog" ref={dialogRef}>
+              <p>Działa?</p>
+              <button id="close" onClick={closeDialog}>Zamknij</button>
+            </dialog>
           </div>
         ))}
       </div>
