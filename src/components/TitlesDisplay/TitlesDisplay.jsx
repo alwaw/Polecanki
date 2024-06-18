@@ -1,33 +1,39 @@
 import React from "react";
+import styles from "./TitlesDisplay.module.css";
+
 import { useRef } from "react";
 import { TitlesContext } from "../../App";
-import styles from "./TitlesDisplay.module.css";
+
+import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-import useReviewStore from "../../useReviewStore"; // Import the Zustand store
-
 function TitlesDisplay() {
   const { title } = React.useContext(TitlesContext);
-  const { review } = useReviewStore();
 
   const allTitles = [...title];
 
-  const dialogRef = useRef(null);
+  // modal: Each TV show's title has its own separate render,
+  //which I differentiate by the show's ID.
+  const dialogRefs = useRef({});
 
-  const openDialog = () => {
-      dialogRef.current.showModal();
+  //jak "zobaczyć" dataAPI? 
+
+  const openDialog = (id) => {
+    dialogRefs.current[id].showModal();
+  
   };
 
-  const closeDialog = () => {
-      dialogRef.current.close();
+  const closeDialog = (id) => {
+    dialogRefs.current[id].close();
   };
 
   return (
     <>
       <h3 className={styles.header}>Ostatnio dodane:</h3>
       <div className={styles.wrapper}>
-        {allTitles.map(({ id, title, titleImageSrc, rating, review }) => (
+        {allTitles.map(({ dataAPI, id, title, titleImageSrc, rating, review }) => (
           <div key={id}>
             <div className={styles.ratingBadgeWrapper}>
               <FontAwesomeIcon
@@ -38,15 +44,17 @@ function TitlesDisplay() {
               />
               <span className={styles.ratingBadgeNumber}>{rating}</span>
             </div>
-            <button id="open" onClick={openDialog}>
+            <button id="open" onClick={() => openDialog(id)}>
               <img className={styles.image} alt="plakat" src={titleImageSrc} />{" "}
             </button>
             <h4 className={styles.TitleFont}>{title}</h4>
-            <div>{review}</div>
-            <dialog id="dialog" ref={dialogRef}>
-              <p>Działa?</p>
-              <button id="close" onClick={closeDialog}>Zamknij</button>
-            </dialog>
+            <DialogSeriesDetails
+              dialogRefs={dialogRefs}
+              id={id}
+              review={review}
+              closeDialog={closeDialog}
+              dataAPI={dataAPI}
+            />
           </div>
         ))}
       </div>

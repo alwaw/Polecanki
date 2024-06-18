@@ -24,15 +24,11 @@ function ThereIsResult({
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (userStarRate === 0) {
-      return window.alert("Zapomniałeś ocenić!");
-    }
-
     //adding data about series to state => then display it in TitlesDisplay component
     const newTitle = [
       ...title,
       {
-        id: crypto.randomUUID(),
+        dataAPI: {dataAPI},
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
         rating: userStarRate,
