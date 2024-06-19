@@ -138,7 +138,7 @@ function AddNew() {
   }
 
   //I'm passing a reset function to a lower-level component 
-  //that resets values used only in that component.
+  //that resets values used only in this component.
   function cleanupFunction() {
     setPendingTitle("");
     setIsLoading(false);

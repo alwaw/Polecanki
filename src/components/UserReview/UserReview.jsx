@@ -19,7 +19,6 @@ function UserReview({ maxChars }) {
   // edited - user has clicked "edit" button - <p> changes into textarea again
 
   if (reviewState === "empty" || reviewState === "edited") {
-    console.log("reviewState ma być puste lub edytowane " + reviewState);
     return (
       <EditableTextArea
         maxChars={maxChars}
@@ -32,7 +31,6 @@ function UserReview({ maxChars }) {
   }
 
   if (reviewState === "added") {
-    console.log("review State powinno być added " + reviewState);
     return (
       <ReviewFromUser
         review={review}
@@ -90,10 +88,9 @@ function EditableTextArea({
   );
 }
 
-function ReviewFromUser({ review, setReviewState, reviewState }) {
+export function ReviewFromUser({ review, setReviewState }) {
   function editReview() {
     setReviewState("edited");
-    console.log("po dodaniu recenzji: " + reviewState);
   }
 
   return (

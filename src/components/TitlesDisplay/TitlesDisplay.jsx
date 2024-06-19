@@ -18,11 +18,8 @@ function TitlesDisplay() {
   //which I differentiate by the show's ID.
   const dialogRefs = useRef({});
 
-  //jak "zobaczyć" dataAPI? 
-
   const openDialog = (id) => {
     dialogRefs.current[id].showModal();
-  
   };
 
   const closeDialog = (id) => {
@@ -54,6 +51,8 @@ function TitlesDisplay() {
               review={review}
               closeDialog={closeDialog}
               dataAPI={dataAPI}
+              rating={rating}
+        
             />
           </div>
         ))}

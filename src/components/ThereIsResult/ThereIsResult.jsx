@@ -28,7 +28,7 @@ function ThereIsResult({
     const newTitle = [
       ...title,
       {
-        dataAPI: {dataAPI},
+        dataAPI,
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
         rating: userStarRate,
