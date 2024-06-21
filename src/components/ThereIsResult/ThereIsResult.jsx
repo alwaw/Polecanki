@@ -1,5 +1,5 @@
 import React from "react";
-import { TitlesContext } from "../../App";
+// import { TitlesContext } from "../../App";
 import styles from "./ThereIsResult.module.css";
 
 import ShowDetails from "../ShowDetails/ShowDetails";
@@ -11,33 +11,49 @@ import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 //fetch has worked :-)
 function ThereIsResult({
-  dataAPI,
-  userStarRate,
-  setUserStarRate,
+  // dataAPI,
+  // userStarRate,
+  // setUserStarRate,
   cleanupFunction,
 }) {
-  const { title, setTitle } = React.useContext(TitlesContext);
+  // const { title, setTitle } = React.useContext(TitlesContext);
 
-  const { review, setReview, reviewState, setReviewState } = useReviewStore();
+  const {
+    title,
+    setTitle,
+    review,
+    setReview,
+    reviewState,
+    setReviewState,
+    dataAPI,
+    userStarRate,
+    setUserStarRate,
+    findTvSeriesById
+  } = useReviewStore();
 
   //submitting series into TitlesDisplay component
   function handleSubmit(event) {
     event.preventDefault();
 
     //adding data about series to state => then display it in TitlesDisplay component
-    const newTitle = [
-      ...title,
+    const newTitle = 
+ 
       {
-        dataAPI,
+        // dataAPI,
         title: dataAPI.title,
         titleImageSrc: dataAPI.URL_IMAGE,
         rating: userStarRate,
         id: dataAPI.id,
         review: review,
-      },
-    ];
+      };
+    
 
-    setTitle(newTitle);
+   
+    setTitle([...title, newTitle]);
+    console.log(title);
+
+
+
 
     // clear the fields:
     cleanupFunction(); //Cleanup function from the AddNew component (resetting values existing only in the AddNew component).
@@ -61,12 +77,13 @@ function ThereIsResult({
 
   return (
     <>
-      <ShowDetails dataAPI={dataAPI} />
+      <ShowDetails />
       <div className={styles.ratingWrapper}>
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
         <StarRatingUser
-          userStarRate={userStarRate}
-          setUserStarRate={setUserStarRate}
+          initialValue={0}
+          // userStarRate={userStarRate}
+          // setUserStarRate={setUserStarRate}
         />
       </div>
       <UserReview maxChars={500} />

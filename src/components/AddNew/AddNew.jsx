@@ -1,5 +1,5 @@
 import React from "react";
-import { TitlesContext } from "../../App";
+// import { TitlesContext } from "../../App";
 import { Link } from "react-router-dom";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
@@ -18,38 +18,46 @@ import SearchIcon from "@mui/icons-material/Search";
 export const MAX_STAR_RATE = 10;
 
 function AddNew() {
-  const { title } = React.useContext(TitlesContext);
-  
-  const [pendingTitle, setPendingTitle] = React.useState("");
-  const [dataAPI, setDataAPI] = React.useState({});
+  // const { title } = React.useContext(TitlesContext);
 
-  const { setReview, setReviewState } = useReviewStore(); 
+  const [pendingTitle, setPendingTitle] = React.useState("");
+  // const [dataAPI, setDataAPI] = React.useState({});
+
+  const {
+    title,
+    setReview,
+    setReviewState,
+    setDataAPI,
+    dataAPI,
+    userStarRate,
+    setUserStarRate,
+    reset
+  } = useReviewStore();
 
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
-  const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children componentv
+  // const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children componentv
 
   let arrayOfGenresNames = [];
 
   function titleSearching(event) {
     event.preventDefault();
-
-
+    
 
     //resetting all values:
-    setUserStarRate(0);
+    // setUserStarRate(0);
     setIsLoading(false); // there is no result right now
     setIsFailed(false); // Reset failure state
     setIsAlreadyAdded(false); // Reset already added state
-    setDataAPI({}); // Clear previous data
-    setReview(""); // clear previous review from user
-    setReviewState("empty") // clear review state
+    // setDataAPI({}); // Clear previous data
+    // setReview(""); // clear previous review from user
+    // setReviewState("empty"); // clear review state
+    reset();
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
-
-      //I'm comparing IDs retrieved from the TMDB API 
+      //I'm comparing IDs retrieved from the TMDB API
       //with an array containing IDs and names of genres GENRE_ID.
       const genre_ids = genre;
       let arrayOfGenresObj = [];
@@ -59,12 +67,12 @@ function AddNew() {
         arrayOfGenresObj.push(newItem);
       }
 
-      //The array consists of [i] arrays, and within 
+      //The array consists of [i] arrays, and within
       //each array is an object - I extract the value 'name' from it.
 
       for (let i = 0; i < arrayOfGenresObj.length; i++) {
         let newItem = arrayOfGenresObj[i][0].name;
-        arrayOfGenresNames.push(newItem); // finally, an array 
+        arrayOfGenresNames.push(newItem); // finally, an array
         //with genre names is being created.
       }
 
@@ -83,6 +91,8 @@ function AddNew() {
       };
 
       setDataAPI(newObject);
+
+      
     }
 
     const options = {
@@ -96,7 +106,7 @@ function AddNew() {
 
     const titleURL = encodeURIComponent(pendingTitle);
 
-    //fetch basic data: id, title (name), img src, overwiev, 
+    //fetch basic data: id, title (name), img src, overwiev,
     //rating and genre ids
     fetch(
       `https://api.themoviedb.org/3/search/tv?query=${titleURL}&include_adult=false&language=en-US&page=1`,
@@ -137,7 +147,7 @@ function AddNew() {
       });
   }
 
-  //I'm passing a reset function to a lower-level component 
+  //I'm passing a reset function to a lower-level component
   //that resets values used only in this component.
   function cleanupFunction() {
     setPendingTitle("");
@@ -157,9 +167,9 @@ function AddNew() {
     if (isLoading && !isAlreadyAdded && !isFailed) {
       return (
         <ThereIsResult
-          dataAPI={dataAPI}
-          userStarRate={userStarRate}
-          setUserStarRate={setUserStarRate}
+          // dataAPI={dataAPI}
+          // userStarRate={userStarRate}
+          // setUserStarRate={setUserStarRate}
           cleanupFunction={cleanupFunction}
         />
       );

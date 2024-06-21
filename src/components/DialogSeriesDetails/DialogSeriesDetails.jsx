@@ -3,15 +3,30 @@ import ShowDetails from "../ShowDetails/ShowDetails";
 import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
 import StarRatingUser from "../StarRatingUser/StarRatingUser";
 import { ReviewFromUser } from "../UserReview/UserReview";
+import useReviewStore from "../../useReviewStore";
 
 function DialogSeriesDetails({
   dialogRefs,
   id,
-  review,
+  // review,
   closeDialog,
-  dataAPI,
-  rating
+  // dataAPI,
+  // rating
 }) {
+
+  const {
+    review,
+    setReview,
+    reviewState,
+    setReviewState,
+    dataAPI,
+    userStarRate,
+    setUserStarRate, 
+    findTvSeriesById
+  } = useReviewStore();
+
+  const titleObject = findTvSeriesById(id);
+  console.log(titleObject);
 
   const [isEdited, setIsEdited] = React.useState(false);
   // isEdited states:
@@ -21,6 +36,13 @@ function DialogSeriesDetails({
   
   function editDialog(id) {
     setIsEdited(true);
+
+    function addNewData() {
+      const isWorking = findTvSeriesById(id);
+      console.log(isWorking);
+    }
+
+    addNewData();
   }
 
   if (!isEdited) {
@@ -29,7 +51,8 @@ function DialogSeriesDetails({
       <ShowDetails dataAPI={dataAPI}/>
       <StarRatingTMDB ratingTMDB={dataAPI.rating} />
       <StarRatingUser
-          userStarRate={rating}
+          initialValue={titleObject.rating}
+          userStarRate={userStarRate}
           setUserStarRate={()=>{}} //No-op function to prevent changing rating
         />
       <ReviewFromUser review={review} setReviewState={()=>{}} />
@@ -41,7 +64,15 @@ function DialogSeriesDetails({
     )
   } else {
     return (
-      console.log("edycja")
+      <dialog id="dialog" ref={(el) => (dialogRefs.current[id] = el)}>
+        <ShowDetails dataAPI={dataAPI}/>
+        <StarRatingTMDB ratingTMDB={dataAPI.rating} />
+        <StarRatingUser
+          userStarRate={userStarRate}
+          setUserStarRate={setUserStarRate} 
+        />
+        <button onClick={()=>editDialog(dataAPI.id)}>Działa?</button>
+      </dialog>
     )
   }
 

@@ -17,7 +17,7 @@ import AddNew from './components/AddNew/AddNew.jsx';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 
-export const TitlesContext = React.createContext();
+// export const TitlesContext = React.createContext();
 
 //todo:
 
@@ -53,18 +53,18 @@ function App() {
 
  
 
-  const [title, setTitle] = React.useState([]);
-  const value = { title, setTitle };
+  // const [title, setTitle] = React.useState([]);
+  // const value = { title, setTitle };
 
 
   return (
     
-    <TitlesContext.Provider value = { value }>
+    // <TitlesContext.Provider value = { value }>
       <RouterProvider router={router}>
       <AddNew />
       <TitlesDisplay />
       </RouterProvider>
-    </TitlesContext.Provider>
+    // </TitlesContext.Provider>
    
   )
 }

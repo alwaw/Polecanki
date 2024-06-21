@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./TitlesDisplay.module.css";
+import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import { useRef } from "react";
-import { TitlesContext } from "../../App";
+// import { TitlesContext } from "../../App";
 
 import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
 
@@ -10,7 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function TitlesDisplay() {
-  const { title } = React.useContext(TitlesContext);
+  const { title } = useReviewStore();
+  // const { title } = React.useContext(TitlesContext);
 
   const allTitles = [...title];
 

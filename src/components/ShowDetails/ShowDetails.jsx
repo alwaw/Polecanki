@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./ShowDetails.module.css";
+import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
-function ShowDetails({ dataAPI }) {
+function ShowDetails() {
+  const { dataAPI, title, findTvSeriesById } = useReviewStore();
 
   //Genre tags:
   //I convert the received object into an array and iterate over it,
@@ -10,6 +12,7 @@ function ShowDetails({ dataAPI }) {
   //(tags cannot be manually added—at least in this version, nor can they be removed).
   
   function handlerGenre() {
+
     let copyObj = { ...dataAPI.genre_tags };
     const arrayOfGenreTags = Object.values(copyObj);
     return (
