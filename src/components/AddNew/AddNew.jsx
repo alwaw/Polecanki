@@ -1,6 +1,4 @@
 import React from "react";
-// import { TitlesContext } from "../../App";
-import { Link } from "react-router-dom";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import styles from "./AddNew.module.css";
@@ -18,42 +16,38 @@ import SearchIcon from "@mui/icons-material/Search";
 export const MAX_STAR_RATE = 10;
 
 function AddNew() {
-  // const { title } = React.useContext(TitlesContext);
 
   const [pendingTitle, setPendingTitle] = React.useState("");
-  // const [dataAPI, setDataAPI] = React.useState({});
+
 
   const {
     title,
-    setReview,
-    setReviewState,
     setDataAPI,
     dataAPI,
-    userStarRate,
-    setUserStarRate,
     reset
   } = useReviewStore();
 
   const [isFailed, setIsFailed] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false); // Hasn't the series already been added before?
-  // const [userStarRate, setUserStarRate] = React.useState(0); // getting star rating from children componentv
+  const [isAlreadyAdded, setIsAlreadyAdded] = React.useState(false);   // Hasn't the series already been added before?
+
+  
 
   let arrayOfGenresNames = [];
 
   function titleSearching(event) {
     event.preventDefault();
     
-
-    //resetting all values:
-    // setUserStarRate(0);
+    //clear all states:
     setIsLoading(false); // there is no result right now
     setIsFailed(false); // Reset failure state
     setIsAlreadyAdded(false); // Reset already added state
-    // setDataAPI({}); // Clear previous data
-    // setReview(""); // clear previous review from user
-    // setReviewState("empty"); // clear review state
-    reset();
+    reset(); 
+    //^ Zustand reset function: 
+    //reset UserStarsRate
+    //clear data from DataAPI
+    //clear review from user about previous show
+    //clear review state to "empty"
 
     //everything about downloading data from TMDB:
     function getDataFromAPI(id, title, src, overview, rating, genre) {
@@ -91,8 +85,6 @@ function AddNew() {
       };
 
       setDataAPI(newObject);
-
-      
     }
 
     const options = {
@@ -167,9 +159,6 @@ function AddNew() {
     if (isLoading && !isAlreadyAdded && !isFailed) {
       return (
         <ThereIsResult
-          // dataAPI={dataAPI}
-          // userStarRate={userStarRate}
-          // setUserStarRate={setUserStarRate}
           cleanupFunction={cleanupFunction}
         />
       );

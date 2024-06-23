@@ -3,7 +3,7 @@ import styles from "./ShowDetails.module.css";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 function ShowDetails() {
-  const { dataAPI, title, findTvSeriesById } = useReviewStore();
+  const { dataAPI } = useReviewStore();
 
   //Genre tags:
   //I convert the received object into an array and iterate over it,

@@ -20,29 +20,30 @@ function StarRatingUser({ initialValue }) {
     <div className={styles.wrapper}>
       <h3 className={styles.header}>Twoja ocena: </h3>
       <div>
-        {initialValue ? (
-          userStarsArray.map((star, index) => (
-            <span key={index}>
-              <FontAwesomeIcon
-                icon={faStar}
-                size="xl"
-                className={styles.singleStar}
-                color={initialValue >= star ? "gold" : undefined}
-              />
-            </span>
-          ))
-        ) : (
-          userStarsArray.map((star, index) => (
-            <span key={index} onClick={() => setUserStarRate(star)}>
-              <FontAwesomeIcon
-                icon={faStar}
-                size="xl"
-                className={styles.singleStar}
-                color={userStarRate >= star ? "gold" : undefined}
-              />
-            </span>
-          ))
-        )}
+        {/*////Below I check if an initial value has been provided. 
+          //If so, I display the correct number of gold stars in the component; 
+          /if not, I display only gray stars.*/}
+        {initialValue
+          ? userStarsArray.map((star, index) => (
+              <span key={index}>
+                <FontAwesomeIcon
+                  icon={faStar}
+                  size="xl"
+                  className={styles.singleStar}
+                  color={initialValue >= star ? "gold" : undefined}
+                />
+              </span>
+            ))
+          : userStarsArray.map((star, index) => (
+              <span key={index} onClick={() => setUserStarRate(star)}>
+                <FontAwesomeIcon
+                  icon={faStar}
+                  size="xl"
+                  className={styles.singleStar}
+                  color={userStarRate >= star ? "gold" : undefined}
+                />
+              </span>
+            ))}
       </div>
       <p>{userStarRate}</p>
     </div>

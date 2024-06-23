@@ -3,7 +3,6 @@ import styles from "./TitlesDisplay.module.css";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import { useRef } from "react";
-// import { TitlesContext } from "../../App";
 
 import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
 
@@ -12,12 +11,11 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function TitlesDisplay() {
   const { title } = useReviewStore();
-  // const { title } = React.useContext(TitlesContext);
 
   const allTitles = [...title];
 
   // modal: Each TV show's title has its own separate render,
-  //which I differentiate by the show's ID.
+  // which I differentiate by the show's ID.
   const dialogRefs = useRef({});
 
   const openDialog = (id) => {
@@ -50,10 +48,9 @@ function TitlesDisplay() {
             <DialogSeriesDetails
               dialogRefs={dialogRefs}
               id={id}
-              review={review}
+       
               closeDialog={closeDialog}
-              dataAPI={dataAPI}
-              rating={rating}
+    
         
             />
           </div>

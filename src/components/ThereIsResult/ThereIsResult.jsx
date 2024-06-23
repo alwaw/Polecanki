@@ -7,17 +7,12 @@ import StarRatingTMDB from "../StarRatingTMDB/StarRatingTMDB";
 import StarRatingUser from "../StarRatingUser/StarRatingUser";
 import UserReview from "../UserReview/UserReview";
 
+import { MAX_CHARS } from "../../utils/const";
+
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 //fetch has worked :-)
-function ThereIsResult({
-  // dataAPI,
-  // userStarRate,
-  // setUserStarRate,
-  cleanupFunction,
-}) {
-  // const { title, setTitle } = React.useContext(TitlesContext);
-
+function ThereIsResult({ cleanupFunction }) {
   const {
     title,
     setTitle,
@@ -28,7 +23,6 @@ function ThereIsResult({
     dataAPI,
     userStarRate,
     setUserStarRate,
-    findTvSeriesById
   } = useReviewStore();
 
   //submitting series into TitlesDisplay component
@@ -36,27 +30,20 @@ function ThereIsResult({
     event.preventDefault();
 
     //adding data about series to state => then display it in TitlesDisplay component
-    const newTitle = 
- 
-      {
-        // dataAPI,
-        title: dataAPI.title,
-        titleImageSrc: dataAPI.URL_IMAGE,
-        rating: userStarRate,
-        id: dataAPI.id,
-        review: review,
-      };
-    
+    const newTitle = {
+      title: dataAPI.title,
+      titleImageSrc: dataAPI.URL_IMAGE,
+      rating: userStarRate,
+      id: dataAPI.id,
+      review: review,
+    };
 
-   
     setTitle([...title, newTitle]);
     console.log(title);
 
-
-
-
     // clear the fields:
-    cleanupFunction(); //Cleanup function from the AddNew component (resetting values existing only in the AddNew component).
+    cleanupFunction(); //Cleanup function from the AddNew
+    //component (resetting values existing only in the AddNew component).
 
     setUserStarRate(0);
     setReview("");
@@ -80,13 +67,11 @@ function ThereIsResult({
       <ShowDetails />
       <div className={styles.ratingWrapper}>
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
-        <StarRatingUser
-          initialValue={0}
-          // userStarRate={userStarRate}
-          // setUserStarRate={setUserStarRate}
-        />
+        <StarRatingUser initialValue={0} />
       </div>
-      <UserReview maxChars={500} />
+      <UserReview maxChars={MAX_CHARS} enabledButton={true} />
+      {/* enabled - in the mode for adding a new series, the button should be visible by default
+          disabled - in the read-only mode in the TitlesDisplay component, it should be hidden */}
       <div className={styles.buttonWrapper}>
         <button
           className={styles.addButton}

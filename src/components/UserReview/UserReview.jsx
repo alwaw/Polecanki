@@ -5,18 +5,21 @@ import useReviewStore from '../../useReviewStore'; // Import the Zustand store
 
 const randomIndex = Math.floor(Math.random() * REVIEWS_PLACEHOLDERS.length);
 
-function UserReview({ maxChars }) {
+function UserReview({ maxChars, enabledButton }) {
+
   const {
     review,
     reviewState,
     setReview,
     setReviewState,
   } = useReviewStore();
+
   
   //review state:
   // empty - there is no review, user hasn't started writing yet - empty textarea (default state)
   // added - user has added review - there is no textarea, only <p> and button "edit"
   // edited - user has clicked "edit" button - <p> changes into textarea again
+
 
   if (reviewState === "empty" || reviewState === "edited") {
     return (
@@ -26,6 +29,7 @@ function UserReview({ maxChars }) {
         setReviewState={setReviewState}
         review={review}
         reviewState={reviewState}
+       
       />
     );
   }
@@ -36,17 +40,19 @@ function UserReview({ maxChars }) {
         review={review}
         setReviewState={setReviewState}
         reviewState={reviewState}
+        enabledButton={enabledButton}
       />
     );
   }
 }
 
-function EditableTextArea({
+export function EditableTextArea({
   maxChars,
   setReview,
   review,
   setReviewState,
   reviewState,
+  
 }) {
   const charsRemaining = maxChars - review.length;
 
@@ -75,6 +81,7 @@ function EditableTextArea({
         onChange={(event) => setReview(event.target.value)}
       />
       <div className={styles.buttonWrapper}>
+       
         <button
           className={styles.button}
           onClick={(event) => {
@@ -83,12 +90,15 @@ function EditableTextArea({
         >
           Dodaj opinię
         </button>
+        
+        
+
       </div>
     </>
   );
 }
 
-export function ReviewFromUser({ review, setReviewState }) {
+export function ReviewFromUser({ review, setReviewState, enabledButton }) {
   function editReview() {
     setReviewState("edited");
   }
@@ -96,9 +106,11 @@ export function ReviewFromUser({ review, setReviewState }) {
   return (
     <div className={styles.reviewWrapper}>
       <div className={styles.review}>{review}</div>
+      {enabledButton && (
       <button onClick={() => editReview()} className={styles.editButton}>
         Edytuj
       </button>
+)}
     </div>
   );
 }
