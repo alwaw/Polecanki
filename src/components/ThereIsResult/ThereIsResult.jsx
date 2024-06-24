@@ -25,12 +25,14 @@ function ThereIsResult({ cleanupFunction }) {
     setUserStarRate,
   } = useReviewStore();
 
+
   //submitting series into TitlesDisplay component
   function handleSubmit(event) {
     event.preventDefault();
 
     //adding data about series to state => then display it in TitlesDisplay component
     const newTitle = {
+      dataAPI: dataAPI,
       title: dataAPI.title,
       titleImageSrc: dataAPI.URL_IMAGE,
       rating: userStarRate,
@@ -64,7 +66,7 @@ function ThereIsResult({ cleanupFunction }) {
 
   return (
     <>
-      <ShowDetails />
+      <ShowDetails dataAPI={dataAPI}/>
       <div className={styles.ratingWrapper}>
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
         <StarRatingUser initialValue={0} />

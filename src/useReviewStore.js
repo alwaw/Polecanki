@@ -4,6 +4,7 @@ const useReviewStore = create((set, get) => ({
   title: [],
   setTitle: (newTitle) => set({ title: newTitle }),
   //title array:
+  //dataAPI,
   //title,
   //titleImageSrc,
   //rating,

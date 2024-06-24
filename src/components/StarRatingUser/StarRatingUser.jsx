@@ -16,6 +16,11 @@ function StarRatingUser({ initialValue }) {
     userStarsArray[i] = i + 1;
   }
 
+  //dodać funkcję, która rozpatruje przypadki:
+  //user ocenia serial po raz peiorwszy
+  //user odczytuje ocenę serialu w modalu
+  //user odczytuje ocenę seiralu, a później ją edytuje 
+
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.header}>Twoja ocena: </h3>

@@ -10,20 +10,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function TitlesDisplay() {
-  const { title } = useReviewStore();
+  const { title, findTvSeriesById } = useReviewStore();
+
+
+  const dialogRefs = useRef({});
 
   const allTitles = [...title];
 
+
   // modal: Each TV show's title has its own separate render,
   // which I differentiate by the show's ID.
-  const dialogRefs = useRef({});
+  
 
   const openDialog = (id) => {
+
+
     dialogRefs.current[id].showModal();
+
+
   };
 
   const closeDialog = (id) => {
     dialogRefs.current[id].close();
+
   };
 
   return (
@@ -48,9 +57,8 @@ function TitlesDisplay() {
             <DialogSeriesDetails
               dialogRefs={dialogRefs}
               id={id}
-       
               closeDialog={closeDialog}
-    
+         
         
             />
           </div>
