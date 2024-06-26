@@ -147,7 +147,7 @@ function AddNew() {
     setIsAlreadyAdded(false);
   }
 
-  function whatShouldIRender() {
+  function whatShouldIRender_AddNew() {
     if (isFailed) {
       return <NoResults />;
     }
@@ -197,7 +197,7 @@ function AddNew() {
           </IconButton>
         </div>
 
-        {whatShouldIRender()}
+        {whatShouldIRender_AddNew()}
       </form>
     </>
   );

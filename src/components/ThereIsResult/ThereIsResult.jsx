@@ -25,7 +25,6 @@ function ThereIsResult({ cleanupFunction }) {
     setUserStarRate,
   } = useReviewStore();
 
-
   //submitting series into TitlesDisplay component
   function handleSubmit(event) {
     event.preventDefault();
@@ -66,10 +65,10 @@ function ThereIsResult({ cleanupFunction }) {
 
   return (
     <>
-      <ShowDetails dataAPI={dataAPI}/>
+      <ShowDetails dataAPI={dataAPI} />
       <div className={styles.ratingWrapper}>
         <StarRatingTMDB ratingTMDB={dataAPI.rating} />
-        <StarRatingUser initialValue={0} />
+        <StarRatingUser initialValue={0} edit={true} />
       </div>
       <UserReview maxChars={MAX_CHARS} enabledButton={true} />
       {/* enabled - in the mode for adding a new series, the button should be visible by default

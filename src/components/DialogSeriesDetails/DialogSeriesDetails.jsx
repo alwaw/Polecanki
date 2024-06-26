@@ -23,21 +23,15 @@ import CloseIcon from "@mui/icons-material/Close";
 function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
   const {
     title,
+    setTitle,
     review,
     userStarRate,
     setUserStarRate,
     findTvSeriesById,
     setReview,
     setReviewState,
+    editTVSeries
   } = useReviewStore();
-
-
-  // const [temporaryRate, setTemporaryRate] = React.useState(titleObject.userStarRate);
-  //User rating added in the edit window
-
-  // const [temporaryReview, setTemporaryReview] = React.useState(titleObject.review);
-  //Review from user added in the edit window
-
 
   const [isEdited, setIsEdited] = React.useState(false);
   // isEdited states:
@@ -46,7 +40,6 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
   //has the ability to edit the rating and review.
 
   const titleObject = findTvSeriesById(id);
-
 
   function editDialogHandler(id) {
     setIsEdited(true);
@@ -61,12 +54,17 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
     setUserStarRate(userStarRate);
 
     //adding data about series to state => then display it in TitlesDisplay component
-    const newTitle = {
-      rating: userStarRate,
-      review: review,
-    };
 
-    setTitle([...titleObject.title, newTitle]);
+    const newTitleObject = {
+      ...titleObject,
+      review: review,
+      rating: userStarRate,
+    }
+
+    editTVSeries(newTitleObject);
+    
+
+    closeDialog(id);
   }
 
   if (!isEdited) {
@@ -95,9 +93,13 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
           initialValue={titleObject.rating}
           userStarRate={userStarRate}
           setUserStarRate={() => {}} //No-op function to prevent changing rating
+          edit={false} //rate is uneditable
         />
-        {/* <UserReview maxChars={MAX_CHARS} enabledButton={true} /> */}
-        <ReviewFromUser review={titleObject.review} setReviewState={() => {}} enabledButton={false}/>
+        <ReviewFromUser
+          review={titleObject.review}
+          setReviewState={() => {}}
+          enabledButton={false}
+        />
         <div className={styles.EditButtonWrapper}>
           <button
             id="edit"
@@ -133,15 +135,10 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
         <StarRatingTMDB ratingTMDB={titleObject.dataAPI.rating} />
         <StarRatingUser
           initialValue={titleObject.rating}
+          edit={true} //rate is editable
         />
-        {/* <EditableTextArea
-          maxChars={MAX_CHARS}
-          setReview={setReview}
-          review={review}
-          setReviewState={setReviewState}
-        /> */}
-        <UserReview maxChars={MAX_CHARS} enabledButton={true} /> 
-        <button onClick={() => saveDialogHandler(dataAPI.id)}>
+        <UserReview maxChars={MAX_CHARS} enabledButton={true} />
+        <button onClick={() => saveDialogHandler(titleObject.id)}>
           Zapisz zmiany
         </button>
       </dialog>
