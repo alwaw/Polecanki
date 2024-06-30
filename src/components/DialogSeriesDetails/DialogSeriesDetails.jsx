@@ -138,9 +138,11 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
           edit={true} //rate is editable
         />
         <UserReview maxChars={MAX_CHARS} enabledButton={true} />
-        <button onClick={() => saveDialogHandler(titleObject.id)}>
+        <div className={styles.saveButtonWrapper}>
+        <button className={styles.saveButton} onClick={() => saveDialogHandler(titleObject.id)}>
           Zapisz zmiany
         </button>
+        </div>
       </dialog>
     );
   }

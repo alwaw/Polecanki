@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 45px;
+    margin: 40px 40px 40px 0;
+}
+
+.image {
+    width: 150px;
+}
+
+.TitleFont {
+    text-align: left;
+    margin: 0;
+}
+
+.header {
+   text-align: left;
+   
+}
+
+.ratingBadgeWrapper {
+    position: absolute;
+    background-color: black;
+    padding: 0 5px 5px 0;
+  
+}
+
+
+.ratingBadgeNumber {
+    padding: 2px;
+}
