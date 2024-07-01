@@ -11,22 +11,34 @@ function TitlesDisplay() {
 
   const allTitles = [...title];
 
-  console.log(allTitles);
+
 
   //tworzę tablicę, w której są tylko gatunki seriali:
 
   const allGenres = [...new Set(allTitles.map(title=>title.dataAPI.genre_tags).flat())];
 
-  console.log(allGenres);
+  //tworzę tablicę, w której są tylko te seriale, które
+  //odpowiadają wybranemu gatunkowi:
+
+  function specificGenreShowsHandler(genre) {
+    const specificGenreShows = allTitles.filter(title => title.dataAPI.genre_tags.includes(genre))
+
+    return (
+      <TitleShot header={genre} genreArray={specificGenreShows} range={5}/>
+    )
+  }
+  
+  
 
   return (
     <>
     <TitleShot header={"Ostatnio dodane"} genreArray={allTitles} range={5} />
     {allGenres.map((genre, index) => (
-      <>
-      <div key={index}>{genre}</div>
     
-      </>
+      <div key={index}>
+      {specificGenreShowsHandler(genre)}
+      </div>
+      
     ))}
     </>
   );

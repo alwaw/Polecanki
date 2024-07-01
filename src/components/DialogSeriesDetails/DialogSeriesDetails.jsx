@@ -15,10 +15,9 @@ import { MAX_CHARS } from "../../utils/const";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-//zrobić stan, w którym będą przechwytywane oceny użytkownika oraz
-//opinie, następnie w momencie zakończenia edycji dodadzą one
-//dane modyfikując obiekt
-//KONIECZNIE: NIE DZIAŁA DODAWANIE RECENZJI W TRYBIE EDYCJI
+//todo - nie działa poprawnie ocenianie usera
+//po zmianie oceny serialu X, przy zmianie oceny seiralu Y
+//pojawia się ocena serialu X
 
 function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
   const {
@@ -134,7 +133,8 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
         <ShowDetails dataAPI={titleObject.dataAPI} />
         <StarRatingTMDB ratingTMDB={titleObject.dataAPI.rating} />
         <StarRatingUser
-          initialValue={titleObject.rating}
+          initialValue={userStarRate}
+          userStarRate={userStarRate}
           edit={true} //rate is editable
         />
         <UserReview maxChars={MAX_CHARS} enabledButton={true} />
