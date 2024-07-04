@@ -44,6 +44,7 @@ function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
     setIsEdited(true);
     setReviewState("edited");
     setReview(titleObject.review);
+    setUserStarRate(titleObject.rating)
   }
 
   function saveDialogHandler(id) {

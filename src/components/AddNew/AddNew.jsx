@@ -13,7 +13,6 @@ import NoResults from "../NoResults/NoResults";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const MAX_STAR_RATE = 10;
 
 function AddNew() {
 

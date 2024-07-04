@@ -1,33 +1,12 @@
-.wrapper {
+.recentlyAddedWrapper {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 45px;
-    margin: 40px 40px 40px 0;
 }
 
-.image {
+.addButton {
+
     width: 150px;
-}
-
-.TitleFont {
-    text-align: left;
-    margin: 0;
-}
-
-.header {
-   text-align: left;
-   
-}
-
-.ratingBadgeWrapper {
-    position: absolute;
-    background-color: black;
-    padding: 0 5px 5px 0;
-  
-}
-
-
-.ratingBadgeNumber {
-    padding: 2px;
+    height: 230px;
+    flex-shrink: 0;
+    margin: 0 0 0 10px;
 }

@@ -25,7 +25,7 @@ function TitleShot({ header, genreArray, range }) {
 
   return (
     <>
-      <h3 className={styles.header}>{header}:</h3>
+      <h3 className={styles.header}>{header}</h3>
       <div className={styles.wrapper}>
         {genreArray.map(({ id, title: titleName, titleImageSrc, rating }) => (
           <div key={id}>

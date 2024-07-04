@@ -11,7 +11,7 @@ const useReviewStore = create((set, get) => ({
   //id,
   //review
 
-  //dataAPI - id, title, URL image, overview, rating, genre tags
+  //dataAPI - id, title, URL image, overview, rating (tmdb), genre tags
   dataAPI: {},
   setDataAPI: (dataAPI) => set({ dataAPI }),
 

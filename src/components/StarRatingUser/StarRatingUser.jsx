@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./StarRatingUser.module.css";
-import { MAX_STAR_RATE } from "../AddNew/AddNew";
+import { MAX_STAR_RATE } from "../../utils/const.jsx";
+
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
