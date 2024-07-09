@@ -7,7 +7,7 @@ function Home(){
     return (
         <>
      
-        <Link to="/addNew">Dodaj</Link>
+        {/* <Link to="/addNew">Dodaj</Link> */}
         <TitlesDisplay />
         </>
     )

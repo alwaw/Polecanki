@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { POLECANKI } from "./utils/POLECANKI.jsx"
+
 
 const useReviewStore = create((set, get) => ({
   title: [],

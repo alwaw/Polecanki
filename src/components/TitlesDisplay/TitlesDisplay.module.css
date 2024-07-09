@@ -1,12 +1,23 @@
 .recentlyAddedWrapper {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+
+   
+}
+
+* {
+    text-decoration: none;
 }
 
 .addButton {
 
     width: 150px;
     height: 230px;
-    flex-shrink: 0;
-    margin: 0 0 0 10px;
+    font-size: 10em;
+    color: grey;
+    display: flex;
+    justify-content: center;
+    align-content: center; 
+    
 }

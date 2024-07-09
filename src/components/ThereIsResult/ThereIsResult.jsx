@@ -39,8 +39,9 @@ function ThereIsResult({ cleanupFunction }) {
       review: review,
     };
 
+    console.log(newTitle);
+
     setTitle([...title, newTitle]);
-    console.log(title);
 
     // clear the fields:
     cleanupFunction(); //Cleanup function from the AddNew
