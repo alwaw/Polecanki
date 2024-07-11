@@ -3,7 +3,7 @@ import { POLECANKI } from "./utils/POLECANKI.jsx"
 
 
 const useReviewStore = create((set, get) => ({
-  title: [],
+  title: [...POLECANKI],
   setTitle: (newTitle) => set({ title: newTitle }),
   //title array:
   //dataAPI,

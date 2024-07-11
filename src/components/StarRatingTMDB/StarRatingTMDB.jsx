@@ -8,9 +8,20 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 
 function StarRatingTMDB() {
-  const {dataAPI} = useReviewStore();
+  const { dataAPI, title } = useReviewStore();
 
-  const ratingTMDB = dataAPI.rating;
+  let ratingTMDB;
+
+  if (dataAPI.rating) {
+    ratingTMDB = dataAPI.rating
+  } else {
+    for (let i = 0; i < title.length; i++) {
+      ratingTMDB = title[i].dataAPI.rating
+    }
+  }
+
+ 
+
 
   const titleRate = Math.round(ratingTMDB);
 

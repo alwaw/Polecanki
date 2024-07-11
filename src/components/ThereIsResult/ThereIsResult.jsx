@@ -68,7 +68,7 @@ function ThereIsResult({ cleanupFunction }) {
     <>
       <ShowDetails dataAPI={dataAPI} />
       <div className={styles.ratingWrapper}>
-        <StarRatingTMDB ratingTMDB={dataAPI.rating} />
+        <StarRatingTMDB />
         <StarRatingUser initialValue={0} edit={true} />
       </div>
       <UserReview maxChars={MAX_CHARS} enabledButton={true} />
