@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TitleShot.module.css";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
+
 import { useRef } from "react";
 
 import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
@@ -9,7 +10,7 @@ import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-function TitleShot({ header, genreArray, range }) {
+function TitleShot({ header, genreArray, slots }) {
   const dialogRefs = useRef({});
 
   // modal: Each TV show's title has its own separate render,
@@ -22,6 +23,8 @@ function TitleShot({ header, genreArray, range }) {
   const closeDialog = (id) => {
     dialogRefs.current[id].close();
   };
+
+
 
   return (
     <>

@@ -35,7 +35,7 @@ export const POLECANKI = [
     rating: 9,
     id: 97546,
     review:
-      "Dużo to piłki nożnej, a ja, mimo trzech dekad na karku, wciąż nie wiem, czym jest spalony. A mimo to uważam, że to jeden z ważniejszych seriali w moim życiu. Ciepły jak puszysty kocyk w listopadowy wieczór, wzruszający jak kumpel na karaoke, który nie zna słów, ale i tak daje z siebie wszystko. Serial ma swoje lepsze i gorsze momenty, bywają dłużyzny, ale i tak przebierałam nóżkami na każdy odcinek o tym trenerze piłki nożnej. Bardzo polecam!",
+      "Dużo tu piłki nożnej, a ja, mimo trzech dekad na karku, wciąż nie wiem, czym jest spalony. A mimo to uważam, że to jeden z ważniejszych seriali w moim życiu. Ciepły jak puszysty kocyk w listopadowy wieczór, wzruszający jak kumpel na karaoke, który nie zna słów, ale i tak daje z siebie wszystko. Serial ma swoje lepsze i gorsze momenty, bywają dłużyzny, ale i tak przebierałam nóżkami na każdy odcinek o tym trenerze piłki nożnej. Bardzo polecam!",
   },
   {
     dataAPI: {

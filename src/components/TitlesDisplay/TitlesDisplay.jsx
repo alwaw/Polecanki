@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./TitlesDisplay.module.css";
 import { Link } from "react-router-dom";
-import { POLECANKI } from "../../utils/POLECANKI.jsx"
+
+import { range } from "../../utils/utils.jsx"
+import { SLOTS } from "../../utils/const.jsx"
 
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import TitleShot from "../TitleShot/TitleShot";
-
-
 
 
 function TitlesDisplay() {
@@ -16,6 +16,12 @@ function TitlesDisplay() {
   console.log(title);
 
   const allTitles = [ ...title];
+
+    //range
+
+    const reversedGenreArray = [...allTitles].reverse();
+    const displayedIndex = range(0, SLOTS);
+    const displayedShows = displayedIndex.map(index => reversedGenreArray[index]);
 
   //I'm creating an array that contains only
   //the genres of TV series (from all those added by the user):
@@ -33,7 +39,7 @@ function TitlesDisplay() {
     );
 
     return (
-      <TitleShot header={genre} genreArray={specificGenreShows} range={5} />
+      <TitleShot header={genre} genreArray={specificGenreShows} slots={SLOTS}/>
     );
   }
 
@@ -44,7 +50,7 @@ function TitlesDisplay() {
     (due to the addition of the 'Dodaj serial' button at the end). */}
       <h3>Ostatnio dodane:</h3>
       <div className={styles.recentlyAddedWrapper}>
-        <TitleShot header={""} genreArray={allTitles} range={5} />
+        <TitleShot header={""} genreArray={displayedShows} slots={SLOTS} />
         <Link to="/addNew">
           <button className={styles.addButton}>+</button>
         </Link>
