@@ -2,26 +2,30 @@ import React from "react";
 import styles from "./TitlesDisplay.module.css";
 import { Link } from "react-router-dom";
 
-import { range } from "../../utils/utils.jsx"
-import { SLOTS } from "../../utils/const.jsx"
+import { range } from "../../utils/utils.jsx";
+import { SLOTS } from "../../utils/const.jsx";
 
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
 import TitleShot from "../TitleShot/TitleShot";
-
 
 function TitlesDisplay() {
   const { title } = useReviewStore();
 
   console.log(title);
 
-  const allTitles = [ ...title];
+  const allTitles = [...title];
 
-    //range
+  //"Ostatnio dodane" displays the last {SLOTS} added shows. 
+  //I use the range function to generate an array of the appropriate 
+  //length and also reverse the order of the array so that the most 
+  //recently added show is at index zero.
 
-    const reversedGenreArray = [...allTitles].reverse();
-    const displayedIndex = range(0, SLOTS);
-    const displayedShows = displayedIndex.map(index => reversedGenreArray[index]);
+  const reversedGenreArray = [...allTitles].reverse();
+  const displayedIndex = range(0, SLOTS);
+  const displayedShows = displayedIndex.map(
+    (index) => reversedGenreArray[index]
+  );
 
   //I'm creating an array that contains only
   //the genres of TV series (from all those added by the user):
@@ -39,7 +43,7 @@ function TitlesDisplay() {
     );
 
     return (
-      <TitleShot header={genre} genreArray={specificGenreShows} slots={SLOTS}/>
+      <TitleShot header={genre} genreArray={specificGenreShows} slots={SLOTS} />
     );
   }
 

@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./TitleShot.module.css";
 import useReviewStore from "../../useReviewStore"; // Import the Zustand store
 
-
 import { useRef } from "react";
 
 import DialogSeriesDetails from "../DialogSeriesDetails/DialogSeriesDetails";
@@ -23,8 +22,6 @@ function TitleShot({ header, genreArray, slots }) {
   const closeDialog = (id) => {
     dialogRefs.current[id].close();
   };
-
-
 
   return (
     <>
