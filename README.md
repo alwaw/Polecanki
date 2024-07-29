@@ -81,11 +81,11 @@ JavaScript (rzecz jasna :))
 CSS (flexbox, grid)
 
 <h2>Planowane funkcjonalności: </h2>
-- Możliwość usuwania serialu z widoku głównego oraz edycji modala.
-- Możliwość edycji serialu, jeśli w wyszukiwarce serialu wpisało się serial, który już został dodany.
-- Dodanie belki z dodatkowymi informacjami (w oknie wyszukiwania serialu oraz w modalu): liczbą sezonów, wiodącymi aktorami, oceną tmdb poszczególnych sezonów, liczbą odcików per sezon, średnią długością odcinka itd. Opcjonalnie: możliwość oceniania poszczególnych sezonów przez użytkownika. 
-- Własne rankingi seriali (np. TOP 10 seriali, TOP 10 sci-fi & fantasy itd.), które będzie można kopiować i w formie czystego tekstu przeklejać znajomym w formie wiadomości tekstowej.
-- Backendowo: możliwość logowania oraz dodawania znajomych (dzięki czemu będziemy mogli się przełączyć między widokiem tylko naszych seriali, a wszystkich seriali dodanych przez nas i znajomych wraz ze średnią ocen).
+- Możliwość usuwania serialu z widoku głównego oraz edycji modala. <br>
+- Możliwość edycji serialu, jeśli w wyszukiwarce serialu wpisało się serial, który już został dodany.<br>
+- Dodanie belki z dodatkowymi informacjami (w oknie wyszukiwania serialu oraz w modalu): liczbą sezonów, wiodącymi aktorami, oceną tmdb poszczególnych sezonów, liczbą odcików per sezon, średnią długością odcinka itd. Opcjonalnie: możliwość oceniania poszczególnych sezonów przez użytkownika. <br>
+- Własne rankingi seriali (np. TOP 10 seriali, TOP 10 sci-fi & fantasy itd.), które będzie można kopiować i w formie czystego tekstu przeklejać znajomym w formie wiadomości tekstowej.<br>
+- Backendowo: możliwość logowania oraz dodawania znajomych (dzięki czemu będziemy mogli się przełączyć między widokiem tylko naszych seriali, a wszystkich seriali dodanych przez nas i znajomych wraz ze średnią ocen).<br>
 <br>
 <br>
 <br>
