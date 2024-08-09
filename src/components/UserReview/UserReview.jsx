@@ -74,6 +74,7 @@ export function EditableTextArea({
       </div>
       <textarea
         id="review-field"
+        data-testid="textarea"
         value={review}
         className={styles.textarea}
         maxLength={maxChars}

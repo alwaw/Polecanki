@@ -7,7 +7,8 @@ function Navbar() {
         
           <header className={styles.header}>
             <NavLink to="/">
-            <img
+          <img
+              data-testid={"imgLogo"}
               className={styles.img}
               alt="polecanki logo"
               src="src\assets\polecanki.png"
