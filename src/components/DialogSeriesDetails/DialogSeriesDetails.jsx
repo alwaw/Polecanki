@@ -15,9 +15,6 @@ import { MAX_CHARS } from "../../utils/const";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-//todo - nie działa poprawnie ocenianie usera
-//po zmianie oceny serialu X, przy zmianie oceny seiralu Y
-//pojawia się ocena serialu X
 
 function DialogSeriesDetails({ dialogRefs, id, closeDialog }) {
   const {
