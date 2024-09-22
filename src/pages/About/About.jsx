@@ -1,45 +1,55 @@
 function About() {
   return (
     <>
+      <p>Cześć!</p>
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        Ten projekt to podsumowanie mojej nauki Reacta. Chciałam stworzyć coś,
+        co nie jest kolejną listą zadań ani kalkulatorem, a jednocześnie pokaże,
+        że dobrze rozumiem podstawy Reacta.
       </p>
       <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of
-        using Lorem Ipsum is that it has a more-or-less normal distribution of
-        letters, as opposed to using 'Content here, content here', making it
-        look like readable English. Many desktop publishing packages and web
-        page editors now use Lorem Ipsum as their default model text, and a
-        search for 'lorem ipsum' will uncover many web sites still in their
-        infancy. Various versions have evolved over the years, sometimes by
-        accident, sometimes on purpose (injected humour and the like).
+        Dużą frajdę sprawiło mi samo projektowanie mojej witryny – używałam do
+        tego Figmy, ale wspierałam się również stronami takimi jak dribbble.com.
+        Oczywiste nawiązanie do Netflixa jest zupełnie zamierzone.
       </p>
       <p>
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It
-        has roots in a piece of classical Latin literature from 45 BC, making it
-        over 2000 years old. Richard McClintock, a Latin professor at
-        Hampden-Sydney College in Virginia, looked up one of the more obscure
-        Latin words, consectetur, from a Lorem Ipsum passage, and going through
-        the cites of the word in classical literature, discovered the
-        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
-        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
-        Cicero, written in 45 BC. This book is a treatise on the theory of
-        ethics, very popular during the Renaissance. The first line of Lorem
-        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
-        1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is
-        reproduced below for those interested. Sections 1.10.32 and 1.10.33 from
-        "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their
-        exact original form, accompanied by English versions from the 1914
-        translation by H. Rackham.
+        Największymi wyzwaniami były zarządzanie stanem pomiędzy kilkoma
+        komponentami oraz podzielenie komponentów na jak najmniejsze, reużywalne
+        elementy lub – w przypadku komponentu AddNew – uproszczenie zbyt
+        rozbudowanych komponentów i zdjęcie z nich odpowiedzialności za zbyt
+        dużą ilość stanów. Generalnym zamysłem było, aby każdy komponent, w
+        miarę możliwości, miał tylko swoje własne stany, a w przypadku danych
+        używanych w kilku różnych komponentach, odwoływał się do Zustand store.
+      </p>
+      <p>
+        Największym odkryciem był wspomniany już Zustand, który okazał się łatwą
+        i przyjemną – w porównaniu do Reduxa :) – metodą na przechowywanie i
+        zarządzanie stanem poza strukturą całego drzewa komponentów.
+      </p>
+      <p>
+        W planach mam rozbudowę tej witryny: - dodanie zakładek z rankingiem -
+        seriali z najwyższą oceną z podziałem na gatunki oraz globalnie; -
+        dodanie funkcjonalności backendowych: kont użytkowników, możliwość
+        dodawanie się do kręgu znajomych, a co za tym idzie: widoczność
+        trackerów naszych znajomych, budowanie wspólnych rankingów - dodanie
+        opcji łatwego kopiowania listy seriali z wybranego przez nas zakresu
+        (np. seriale ze wskazanym zakresem ocen, seriale z danego gatunku) -
+        byłaby to gotowa do wklejenia do komunikatora bądź maila lista
+        polecanych seriali.
+      </p>
+      <p>
+        Kilka słów o mnie: obecnie uczę się Typescripta oraz Framer Motiona, w
+        planach mam również poznanie podstaw pracy z bazami danych oraz
+        opanowanie wybranego języka backendowego. Prywatnie jestem matką dwóch
+        synów, a przy tym kociarą (niestety obecnie tylko zdalnie) oraz fanką
+        gier cRPG. Lubię gotować, z masochistyczną fascynacją śledzę polską
+        politykę, namiętnie słucham podcastów. W życiu zawodowym stawiam na
+        nieustanny rozwój oraz poszukiwanie wartościowych, inspirujących osób.
+        Wierzę, że kluczem do sukcesu jest dobra atmosfera w zespole, która nie
+        tylko sprzyja efektywnej współpracy, ale także pozwala na pełne
+        wykorzystanie potencjału każdego z jego członków. Tworzenie środowiska,
+        w którym ludzie czują się doceniani i wspierani, to dla mnie fundament
+        satysfakcjonującej pracy oraz wspólnych osiągnięć.
       </p>
     </>
   );
