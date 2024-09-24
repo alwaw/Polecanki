@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import logo from "../../../assets/logo.png";
 
 function Navbar() {
     return (
@@ -8,10 +9,10 @@ function Navbar() {
           <header className={styles.header}>
             <NavLink to="/">
           <img
-              data-testid={"imgLogo"}
-              className={styles.img}
-              alt="polecanki logo"
-              src="src\assets\polecanki.png"
+            data-testid={"imgLogo"}
+            className={styles.img}
+            alt="polecanki logo"
+            src={logo}
             />
             </NavLink>
     
