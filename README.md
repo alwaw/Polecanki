@@ -1,3 +1,5 @@
+** live projekt: https://polecanki.netlify.app/ **
+
 ** english below **
 
 <h1>Cześć!</h1>
